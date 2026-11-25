@@ -1,0 +1,1155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bertie's Austin</title>
+<meta name="description" content="Mama Lou's daily Austin companion, with Bertie.">
+<meta name="theme-color" content="#edf1ef">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Bertie">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}a,button{-webkit-tap-highlight-color:transparent}</style>
+</head>
+<body>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: one greeting-card column, phone first. A watercolor Austin scene with the temperature painted over it, then calm white cards of things to do, each with Today and Coming up. One deliberate light look, so every color is set explicitly. */
+:root{
+  --paper:#edf1ef; --card:#ffffff; --ink:#1f2b3d; --muted:#5b6878; --line:#d5dedc;
+  --navy:#2c4a6e; --navy-deep:#1e3550; --sage:#4f7560; --sage-soft:#e2ece4;
+  --gold:#b8892e; --gold-soft:#f6eedb; --sky-soft:#e3ecf5; --texas:#bf5700;
+  --display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --body:"Lora",Georgia,"Times New Roman",serif;
+  color-scheme:light;
+}
+html,body{background:var(--paper);color:var(--ink)}
+body{font-family:var(--body);font-size:20px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px 48px}
+.app{max-width:540px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+a{color:var(--navy)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
+
+.greet{text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px;padding-top:6px}
+.greet .date{font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:var(--sage);font-weight:600}
+.greet h1{font-family:var(--display);font-weight:600;font-size:40px;line-height:1.05;margin:0;color:var(--navy-deep);text-wrap:balance}
+.greet h1 em{color:var(--navy);font-style:italic}
+.flourish{width:120px;height:14px;margin-top:4px}
+
+.scene{position:relative;border-radius:22px;overflow:hidden;background:#cfe0ea;
+  box-shadow:0 0 0 6px var(--card),0 0 0 7px var(--line),0 14px 30px rgba(31,43,61,.16)}
+.scene svg{display:block;width:100%;height:auto;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.tap{cursor:pointer}
+.wxo{position:absolute;top:12px;left:16px;color:#fff;text-shadow:0 1px 2px rgba(20,30,50,.55),0 0 14px rgba(20,30,50,.35);pointer-events:none;line-height:1.1}
+.wxo .t{font-family:var(--display);font-weight:700;font-size:64px;line-height:.9;font-variant-numeric:tabular-nums}
+.wxo .c{font-size:17px;font-weight:600;margin-top:4px}
+.wxo .hl{font-size:15px;opacity:.95}
+.hint{text-align:center;font-size:17px;color:var(--muted);font-style:italic;margin-top:-8px;transition:opacity .6s}
+
+.contents{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.contents a{font-size:16px;text-decoration:none;color:var(--navy-deep);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;min-height:48px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2;box-shadow:0 2px 0 var(--line)}
+.contents a:active{transform:translateY(1px);box-shadow:none}
+
+section.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px 20px 22px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.card-h{display:flex;gap:14px;align-items:center}
+.card-h svg{flex:none;width:46px;height:46px}
+.card-h h2{font-family:var(--display);font-size:32px;font-weight:700;line-height:1.05;margin:0;color:var(--navy-deep);text-wrap:balance}
+.card-h p{margin:2px 0 0;font-size:16px;color:var(--muted);font-style:italic}
+.group{display:flex;flex-direction:column;gap:12px}
+.group-label{font-size:15px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--sage);display:flex;align-items:center;gap:10px}
+.group-label::after{content:"";flex:1;height:1px;background:var(--line)}
+.group-label.today{color:var(--gold)}
+.empty{font-style:italic;color:var(--muted);font-size:18px;margin:0}
+
+.item{border:1px solid var(--line);border-radius:16px;padding:14px 16px 16px;background:#fbfcfb;display:flex;flex-direction:column;gap:6px;min-width:0}
+.item h3{font-family:var(--display);font-size:27px;font-weight:700;line-height:1.1;margin:0;color:var(--ink);text-wrap:balance}
+.item .when{font-size:18px;font-weight:600;color:var(--navy)}
+.item .place{font-size:17px;color:var(--muted)}
+.item p{margin:2px 0 0;font-size:19px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.chip{font-size:15px;border-radius:999px;padding:3px 11px;background:var(--sage-soft);color:#35513f}
+.chip.free{background:var(--gold-soft);color:#6d5115}
+.chip.home{background:var(--sky-soft);color:#2c4a6e}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.go{display:inline-flex;align-items:center;gap:8px;min-height:52px;padding:10px 20px;border-radius:14px;
+  background:var(--navy);color:#fff;text-decoration:none;font-size:18px;font-weight:600;box-shadow:0 3px 0 var(--navy-deep)}
+.go:active{transform:translateY(2px);box-shadow:0 1px 0 var(--navy-deep)}
+.go.alt{background:var(--sage);box-shadow:0 3px 0 #375443}
+.phone{font-size:19px;font-weight:600;color:var(--ink);user-select:all}
+
+.news{margin:0;padding:0}
+.news li{list-style:none;padding:12px 0;border-top:1px solid var(--line);font-size:19px}
+.news li:first-child{border-top:0;padding-top:0}
+.news a{font-size:17px;white-space:nowrap}
+
+.score{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;text-align:center;gap:8px;background:#fbf0e6;border-radius:16px;padding:14px}
+.score .t{font-family:var(--display);font-size:24px;font-weight:700;line-height:1.1}
+.score .n{font-family:var(--display);font-size:46px;font-weight:700;color:var(--texas);line-height:1;font-variant-numeric:tabular-nums}
+.score .vs{font-size:15px;color:var(--muted);font-style:italic}
+.say{background:var(--gold-soft);border-radius:16px;padding:14px 16px;font-size:19px}
+.say b{display:block;font-family:var(--display);font-size:22px;color:#6d5115;margin-bottom:4px}
+.go.tx{background:var(--texas);box-shadow:0 3px 0 #8a3f00}
+
+.foot{text-align:center;font-size:15px;color:var(--muted);font-style:italic;display:flex;flex-direction:column;gap:4px}
+
+/* Bertie's motion */
+@keyframes trotA{0%,100%{transform:rotate(22deg)}50%{transform:rotate(-22deg)}}
+@keyframes trotB{0%,100%{transform:rotate(-22deg)}50%{transform:rotate(22deg)}}
+.leg{transform-box:fill-box;transform-origin:50% 10%}
+.trot .la{animation:trotA .46s ease-in-out infinite}.trot .lb{animation:trotB .46s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.8px)}}
+.trot #side{animation:bob .23s ease-in-out infinite}
+@keyframes wagS{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(14deg)}}
+#tailS,#tailF{transform-box:fill-box;transform-origin:50% 100%;animation:wagS .55s ease-in-out infinite}
+.happy #tailF{animation-duration:.2s}
+@keyframes plop{0%{transform:translateY(-8px) scale(.94,1.04)}60%{transform:translateY(0) scale(1.04,.96)}100%{transform:none}}
+#front.plop{animation:plop .45s ease-out}
+#front{transform-box:fill-box;transform-origin:50% 100%}
+@keyframes tilt{0%,100%{transform:rotate(0)}35%,65%{transform:rotate(-10deg)}}
+#headF{transform-box:fill-box;transform-origin:50% 90%}
+.tilt #headF{animation:tilt 1.1s ease-in-out}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+.eye{transform-box:fill-box;transform-origin:50% 50%;animation:blink 5s infinite}
+@keyframes drop{0%{transform:translate(0,-30px)}100%{transform:translate(-16px,300px)}}
+.drop{animation:drop .9s linear infinite}
+@keyframes drift{0%{transform:translateX(-24px)}100%{transform:translateX(24px)}}
+.cloud{animation:drift 26s ease-in-out infinite alternate}.cloud.c2{animation-duration:34s;animation-delay:-9s}
+@keyframes leaf{0%{transform:translate(0,-20px) rotate(0)}100%{transform:translate(-60px,300px) rotate(400deg)}}
+.leaf{animation:leaf linear infinite}
+@keyframes tw{0%,100%{opacity:1}50%{opacity:.35}}
+.star{animation:tw 2.4s ease-in-out infinite}
+@keyframes pop{0%{transform:translateY(0) scale(.4);opacity:0}20%{opacity:1}100%{transform:translateY(-34px) scale(1);opacity:0}}
+.heart{animation:pop 1.4s ease-out forwards}
+@keyframes ripple{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+.ripple{animation:ripple 5s ease-in-out infinite}
+@keyframes flap{0%,100%{transform:scaleY(1)}50%{transform:scaleY(-.6)}}
+@keyframes lick{0%,22%{opacity:0;transform:translateY(7px)}32%{opacity:1;transform:translateY(0)}42%{transform:translateY(-1.4px)}52%{transform:translateY(0)}62%{transform:translateY(-1.4px)}72%,80%{opacity:1;transform:translateY(0)}90%,100%{opacity:0;transform:translateY(7px)}}
+#catPaw{animation:lick 4.2s ease-in-out infinite}
+@keyframes catNod{0%,22%,90%,100%{transform:rotate(0)}32%,80%{transform:rotate(14deg)}42%,62%{transform:rotate(17deg)}}
+#catHead{transform-box:fill-box;transform-origin:50% 90%;animation:catNod 4.2s ease-in-out infinite}
+@keyframes catEyes{0%,24%,88%,100%{opacity:1}30%,82%{opacity:0}}
+#catEyesOpen{animation:catEyes 4.2s infinite}
+@keyframes catEyes2{0%,24%,88%,100%{opacity:0}30%,82%{opacity:1}}
+#catEyesShut{animation:catEyes2 4.2s infinite}
+@keyframes flick{0%,70%,100%{transform:rotate(0)}80%{transform:rotate(-12deg)}90%{transform:rotate(6deg)}}
+#catTail{transform-box:fill-box;transform-origin:0% 100%;animation:flick 3.3s ease-in-out infinite}
+.replay{position:absolute;top:max(10px,env(safe-area-inset-top,0px));right:10px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.45);color:var(--navy-deep);display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);padding:0}
+.replay:active{transform:scale(.95)}
+@media (prefers-reduced-motion:reduce){#catPaw,#catHead,#catEyesOpen,#catEyesShut,#catTail,.drop,.cloud,.leaf,.star,#tailS,#tailF,.trot .la,.trot .lb,.eye,.ripple{animation:none}}
+</style>
+
+<script type="application/json" id="daily">
+{
+ "updated": "2026-11-25",
+ "weather": {
+  "condition": "sunny",
+  "summary": "Sunny and chilly",
+  "high": 56,
+  "low": 38,
+  "sunrise": "7:01",
+  "sunset": "17:31",
+  "url": "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
+ },
+ "austinToday": [
+  {
+   "text": "Thanksgiving is tomorrow. Two cold fronts have swept through, so it will be a sweater-weather holiday.",
+   "url": "https://www.fox7austin.com/weather/austin-weather-back-to-back-cold-fronts-will-drop-temperatures-30s-ahead-thanksgiving",
+   "label": "FOX 7"
+  },
+  {
+   "text": "The Zilker Holiday Tree turns 60 this year. It lights up Sunday evening, and you can see it every night through New Year's Day.",
+   "url": "https://www.austintexas.gov/parks/programs/zilker-holiday-tree",
+   "label": "City of Austin"
+  },
+  {
+   "text": "The Longhorns beat Arkansas 45 to 3 on Saturday. They play Texas A&M on Friday night.",
+   "url": "https://texaslonghorns.com/news/2026/11/21/no-8-8-5-football-routs-arkansas-45-3",
+   "label": "Texas Athletics"
+  },
+  {
+   "text": "The Bullock Museum has a new exhibit about the 1990s. It's sure to bring back memories of the grandchildren's childhoods.",
+   "url": "https://www.thestoryoftexas.com/special-exhibits/the-90s/",
+   "label": "Bullock Museum"
+  }
+ ],
+ "sections": [
+  {
+   "id": "outings",
+   "title": "Out & About",
+   "icon": "lamp",
+   "subtitle": "Easy outings around town",
+   "items": [
+    {
+     "title": "Zilker Holiday Tree Lighting",
+     "start": "2026-11-29",
+     "end": "2026-11-29",
+     "when": "Sunday, Nov 29 · lighting at 6 pm (music from 5:15)",
+     "place": "Zilker Park, 2100 Barton Springs Rd",
+     "blurb": "The 60th lighting of Austin's tree of lights, with the Austin Civic Wind Ensemble playing beforehand.",
+     "chips": [
+      "Free",
+      "Outdoors",
+      "Busy on lighting night"
+     ],
+     "url": "https://www.austintexas.gov/parks/programs/zilker-holiday-tree",
+     "linkLabel": "More information"
+    },
+    {
+     "title": "See the Zilker Tree on a quiet night",
+     "start": "2026-11-30",
+     "end": "2027-01-01",
+     "when": "Every evening, 6 to 10 pm, through Jan 1",
+     "place": "Zilker Park",
+     "blurb": "Weeknights are calm, and parking on the paved lots is free. It's lovely even from the car window.",
+     "chips": [
+      "Free",
+      "Free parking"
+     ],
+     "url": "https://www.austintexas.gov/parks/programs/zilker-holiday-tree",
+     "linkLabel": "More information"
+    },
+    {
+     "title": "The Holiday Market at ZACH",
+     "start": "2026-11-28",
+     "end": "2026-11-28",
+     "when": "Saturday, Nov 28 · 3 to 7 pm",
+     "place": "The People's Plaza at ZACH, 202 S Lamar",
+     "blurb": "An open-air market of local makers on Small Business Saturday. Also Dec 12 and Dec 19.",
+     "chips": [
+      "Free",
+      "Outdoors"
+     ],
+     "url": "https://www.broadwayworld.com/article/THE-HOLIDAY-MARKET-AT-ZACH-to-Return-for-2026-20260922",
+     "linkLabel": "Details"
+    },
+    {
+     "title": "The Holiday Market at ZACH",
+     "start": "2026-12-12",
+     "end": "2026-12-12",
+     "when": "Saturday, Dec 12 · 3 to 7 pm",
+     "place": "The People's Plaza at ZACH, 202 S Lamar",
+     "blurb": "Local makers, holiday drinks and gifts, right outside the theater.",
+     "chips": [
+      "Free",
+      "Outdoors"
+     ],
+     "url": "https://www.broadwayworld.com/article/THE-HOLIDAY-MARKET-AT-ZACH-to-Return-for-2026-20260922",
+     "linkLabel": "Details"
+    }
+   ]
+  },
+  {
+   "id": "theater",
+   "title": "Theater",
+   "icon": "mask",
+   "subtitle": "Plays, ballet and opera",
+   "items": [
+    {
+     "title": "A Christmas Carol",
+     "start": "2026-11-25",
+     "end": "2026-12-27",
+     "todayWhen": "Today at 1 pm and 6 pm",
+     "when": "Through Dec 27 · matinees and evenings",
+     "place": "ZACH Theatre, 202 S Lamar Blvd",
+     "blurb": "ZACH's beloved holiday tradition. Afternoon shows are an easy outing.",
+     "chips": [
+      "Seated",
+      "Indoors"
+     ],
+     "url": "https://www.zachtheater.org/tickets/pdps/a-christmas-carol/",
+     "linkLabel": "Tickets & times"
+    },
+    {
+     "title": "The Nutcracker",
+     "start": "2026-12-04",
+     "end": "2026-12-23",
+     "when": "Dec 4 to 23 · 2 pm matinees most weekends",
+     "place": "Ballet Austin at the Long Center, Dell Hall",
+     "blurb": "Ballet Austin's 63rd Nutcracker. About two hours, with a 20-minute intermission.",
+     "chips": [
+      "Seated",
+      "Indoors"
+     ],
+     "url": "https://balletaustin.org/performances/the-nutcracker/",
+     "linkLabel": "Tickets & times"
+    },
+    {
+     "title": "The Met Opera in HD: Samson et Dalila",
+     "start": "2026-12-05",
+     "end": "2026-12-05",
+     "when": "Saturday, Dec 5",
+     "place": "Shown live at movie theaters",
+     "blurb": "Saint-Saëns's lush opera, broadcast live from New York to a cinema near you.",
+     "chips": [
+      "Seated",
+      "Comfy cinema seats"
+     ],
+     "url": "https://www.metopera.org/season/in-cinemas/",
+     "linkLabel": "Find a theater"
+    }
+   ]
+  },
+  {
+   "id": "museums",
+   "title": "Museums",
+   "icon": "column",
+   "subtitle": "Galleries worth a gentle stroll",
+   "items": [
+    {
+     "title": "Houdini's Library",
+     "start": "2026-08-29",
+     "end": "2027-02-07",
+     "when": "On view through Feb 7 · Tue–Fri 10–5, Sat–Sun noon–5",
+     "place": "Harry Ransom Center, 300 W 21st St",
+     "blurb": "The great magician's own books and secrets, from his famous library.",
+     "chips": [
+      "Free",
+      "Indoors"
+     ],
+     "url": "https://www.hrc.utexas.edu/exhibitions/2026/houdinis-library/",
+     "linkLabel": "More information"
+    },
+    {
+     "title": "The Worlds of Gertrude Stein",
+     "start": "2026-08-15",
+     "end": "2027-01-24",
+     "when": "On view through Jan 24",
+     "place": "Harry Ransom Center, 300 W 21st St",
+     "blurb": "Paris salons, Picasso, and the writer who knew everyone.",
+     "chips": [
+      "Free",
+      "Indoors"
+     ],
+     "url": "https://www.hrc.utexas.edu/exhibitions/2026/the-worlds-of-gertrude-stein/",
+     "linkLabel": "More information"
+    },
+    {
+     "title": "The 90s: Last Decade Before the Future",
+     "start": "2026-11-14",
+     "end": "2027-03-21",
+     "when": "On view through Mar 21 · daily 10–5",
+     "place": "Bullock Texas State History Museum, 1800 N Congress",
+     "blurb": "A playful look back at the 1990s. Fun to visit with a grandchild.",
+     "chips": [
+      "Indoors",
+      "Tickets"
+     ],
+     "url": "https://www.thestoryoftexas.com/special-exhibits/the-90s/",
+     "linkLabel": "More information"
+    }
+   ]
+  },
+  {
+   "id": "ut",
+   "title": "University of Texas",
+   "icon": "tower",
+   "subtitle": "Open to the public on the Forty Acres",
+   "items": [
+    {
+     "title": "Hullabaloo Hooray: The History of Texas Spirit",
+     "start": "2026-11-25",
+     "end": "2026-11-25",
+     "when": "Today, 9 am to 5 pm",
+     "place": "Stark Center, north end zone of the stadium",
+     "blurb": "A small exhibit on Longhorn traditions, just in time for the A&M game.",
+     "chips": [
+      "Indoors"
+     ],
+     "url": "https://calendar.utexas.edu/event/hullabaloo-hooray-the-history-of-texas-spirit",
+     "linkLabel": "Details"
+    },
+    {
+     "title": "Revolutions and Constitutions",
+     "start": "2026-11-25",
+     "end": "2026-11-25",
+     "when": "On view today",
+     "place": "Benson Latin American Collection, Sid Richardson Hall",
+     "blurb": "Nation-building in the Americas after 1776, from the Benson's rare collections.",
+     "chips": [
+      "Indoors"
+     ],
+     "url": "https://calendar.utexas.edu/event/revolutions-and-constitutions-nation-building-in-the-americas-after-1776",
+     "linkLabel": "Details"
+    },
+    {
+     "title": "Faculty Book Talk: Inside the Body of Black Feminism",
+     "start": "2026-12-02",
+     "end": "2026-12-02",
+     "when": "Wednesday, Dec 2 · 10 am to noon",
+     "place": "Gordon-White Building, room 2.206",
+     "blurb": "A conversation with historian Marcia Chatelain about a new book on science, race and culture.",
+     "chips": [
+      "Talk",
+      "Indoors"
+     ],
+     "url": "https://calendar.utexas.edu/event/faculty-book-talk-inside-the-body-of-black-feminism-science-race-culture-in-conversation-with-marcia-chatelain",
+     "linkLabel": "Details"
+    },
+    {
+     "title": "Browse every UT event",
+     "start": "2026-11-25",
+     "end": "2027-12-31",
+     "evergreen": true,
+     "when": "Lectures from every college and graduate school",
+     "place": "calendar.utexas.edu",
+     "blurb": "The university's full calendar of public talks, concerts and exhibits.",
+     "chips": [
+      "Free"
+     ],
+     "url": "https://calendar.utexas.edu/",
+     "linkLabel": "Open the calendar"
+    }
+   ]
+  },
+  {
+   "id": "online",
+   "title": "From Your Armchair",
+   "icon": "screen",
+   "subtitle": "Live online talks and tours to watch at home",
+   "items": [
+    {
+     "title": "Corporate Clean Energy Deals",
+     "start": "2026-12-01",
+     "end": "2026-12-01",
+     "when": "Tuesday, Dec 1 · 12:30 to 1:30 pm",
+     "place": "Online, from UT's Energy Symposium",
+     "blurb": "A lunchtime UT talk on record-breaking clean-energy deals.",
+     "chips": [
+      "Watch from home",
+      "Free"
+     ],
+     "url": "https://calendar.utexas.edu/event/utes-consecutive-record-breaking-years-for-corporate-clean-energy-deals",
+     "linkLabel": "How to join"
+    },
+    {
+     "title": "Picasso, Miró, Dalí: Artists' Books",
+     "start": "2026-12-09",
+     "end": "2026-12-09",
+     "when": "Wednesday, Dec 9 · 5:30 to 6:30 pm",
+     "place": "Online, from the Museum of Fine Arts, Boston",
+     "blurb": "Curator Edward Saywell on the illustrated books these artists made. The Zoom link comes by email.",
+     "chips": [
+      "Watch from home",
+      "$15"
+     ],
+     "url": "https://www.mfa.org/event/virtual-member-lecture-picasso-miro-dali",
+     "linkLabel": "Tickets"
+    },
+    {
+     "title": "The Spirits of the 12 Days of Christmas",
+     "start": "2026-12-29",
+     "end": "2026-12-29",
+     "when": "Tuesday, Dec 29 · 2 to 3:30 pm",
+     "place": "Online, from London",
+     "blurb": "A lecture on old British Christmas customs, hosted by Art Fund.",
+     "chips": [
+      "Watch from home",
+      "£11"
+     ],
+     "url": "https://www.artfund.org/explore/events/2026/12/29/liminal-time-the-spirits-of-the-12-days-of-christmas-benjamin-stimpson-zoom-6aeb199195e7b",
+     "linkLabel": "Details"
+    },
+    {
+     "title": "Texas Exes Lunchtime Lectures",
+     "start": "2026-11-25",
+     "end": "2027-12-31",
+     "evergreen": true,
+     "when": "Free online talks by UT professors",
+     "place": "Online",
+     "blurb": "Short lectures that bring back a taste of college days.",
+     "chips": [
+      "Watch from home"
+     ],
+     "url": "https://www.texasexes.org/get-involved/events/lunchtime-lectures",
+     "linkLabel": "See what's next"
+    }
+   ]
+  },
+  {
+   "id": "books",
+   "title": "The Book Nook",
+   "icon": "book",
+   "subtitle": "Good reads, free with your library card",
+   "items": [
+    {
+     "title": "Kin, by Tayari Jones",
+     "start": "2026-11-25",
+     "end": "2027-12-31",
+     "evergreen": true,
+     "when": "One of the Times's best books of the year so far",
+     "place": "Historical fiction",
+     "blurb": "A lush historical novel about two sisters. Borrow it free on Libby, and turn up the text size as big as you like.",
+     "chips": [
+      "Novel",
+      "Audiobook on Libby"
+     ],
+     "url": "https://www.kirkusreviews.com/news-and-features/articles/nyt-releases-list-of-years-best-books-so-far/",
+     "linkLabel": "Read about it",
+     "libby": true
+    },
+    {
+     "title": "The Boundless Deep, by Richard Holmes",
+     "start": "2026-11-25",
+     "end": "2027-12-31",
+     "evergreen": true,
+     "when": "One of the Times's best books of the year so far",
+     "place": "Nonfiction",
+     "blurb": "From the wonderful biographer of the Romantic poets and scientists.",
+     "chips": [
+      "Nonfiction"
+     ],
+     "url": "https://www.kirkusreviews.com/news-and-features/articles/nyt-releases-list-of-years-best-books-so-far/",
+     "linkLabel": "Read about it",
+     "libby": true
+    },
+    {
+     "title": "Read Gertrude Stein, then see her",
+     "start": "2026-11-25",
+     "end": "2027-01-24",
+     "evergreen": true,
+     "when": "Pairs with the Ransom Center show",
+     "place": "The Autobiography of Alice B. Toklas",
+     "blurb": "Stein's witty, gossipy memoir of Paris. Read it, then visit the exhibit before Jan 24.",
+     "chips": [
+      "Classic"
+     ],
+     "url": "https://www.hrc.utexas.edu/exhibitions/2026/the-worlds-of-gertrude-stein/",
+     "linkLabel": "About the exhibit",
+     "libby": true
+    }
+   ]
+  }
+ ],
+ "longhorns": {
+  "headline": "Texas routed Arkansas on Saturday",
+  "last": {
+   "us": "Texas",
+   "usScore": 45,
+   "them": "Arkansas",
+   "themScore": 3,
+   "date": "Saturday, Nov 21"
+  },
+  "next": "Friday, Nov 27 at 6:30 pm, at Texas A&M (on ABC)",
+  "lines": [
+   "Texas is ranked No. 8 in the country.",
+   "Friday is the Lone Star Showdown against the Aggies in College Station.",
+   "Arch Manning is the quarterback, and yes, he's Peyton and Eli's nephew.",
+   "Back in September, Texas came back from 23 to 3 down to beat No. 1 Ohio State, 24 to 23."
+  ],
+  "url": "https://texaslonghorns.com/news/2026/11/21/no-8-8-5-football-routs-arkansas-45-3"
+ }
+}
+</script>
+
+<main class="app">
+  <header class="greet">
+    <div class="date" id="dateline">Wednesday, November 25</div>
+    <h1 id="hello">Good morning, <em>Mama Lou</em></h1>
+    <svg class="flourish" viewBox="0 0 120 14" aria-hidden="true"><path d="M4,7 C24,7 34,2 46,7 C52,10 56,10 60,7 C64,10 68,10 74,7 C86,2 96,7 116,7" stroke="#b8892e" stroke-width="1.4" fill="none" stroke-linecap="round"/><circle cx="60" cy="7" r="2.4" fill="#b8892e"/></svg>
+  </header>
+
+  <div class="scene" id="scene">
+    <svg viewBox="0 0 400 280" role="img" aria-label="Bertie the Norwich terrier in Austin, dressed for today's weather">
+      <defs>
+        <filter id="wc" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="4"/><feDisplacementMap in="SourceGraphic" scale="3.5"/></filter>
+        <filter id="wc2" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="2" seed="11"/><feDisplacementMap in="SourceGraphic" scale="2"/></filter>
+        <filter id="fur" x="-15%" y="-15%" width="130%" height="130%"><feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="7"/><feDisplacementMap in="SourceGraphic" scale="3.4"/></filter>
+        <filter id="soft"><feGaussianBlur stdDeviation="6"/></filter>
+        <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="9" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0.3  0 0 0 0 0.3  0 0 0 0 0.35  0 0 0 0.07 0"/></filter>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop id="sk1" offset="0" stop-color="#8fbde0"/><stop id="sk2" offset=".6" stop-color="#d9e9f0"/><stop id="sk3" offset="1" stop-color="#f4e9d2"/></linearGradient>
+        <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1"><stop id="lk1" offset="0" stop-color="#7fa9c4"/><stop id="lk2" offset="1" stop-color="#5d8aa8"/></linearGradient>
+        <linearGradient id="granite" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e2bfae"/><stop offset="1" stop-color="#cfa592"/></linearGradient>
+        <radialGradient id="glowG"><stop offset="0" stop-color="#ffe7a0" stop-opacity=".9"/><stop offset="1" stop-color="#ffe7a0" stop-opacity="0"/></radialGradient>
+        <radialGradient id="vig" cx=".5" cy=".45" r=".75"><stop offset=".62" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#1f2b3d" stop-opacity=".2"/></radialGradient>
+        <!-- Bertie's coat: a warm red-wheaten Norwich -->
+        <radialGradient id="furHead" cx=".5" cy=".38" r=".7"><stop offset="0" stop-color="#f2be82"/><stop offset="1" stop-color="#dc9a5a"/></radialGradient>
+        <linearGradient id="furBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6a868"/><stop offset="1" stop-color="#d6914f"/></linearGradient>
+        <pattern id="knit" width="12" height="10" patternUnits="userSpaceOnUse"><rect width="12" height="10" fill="#2f5f8a"/><path d="M0,7 l3,-4 l3,4 l3,-4 l3,4" stroke="#f3ead8" stroke-width="1.3" fill="none"/><circle cx="6" cy="1.2" r=".9" fill="#d9a43a"/></pattern>
+        <pattern id="knitRed" width="12" height="10" patternUnits="userSpaceOnUse"><rect width="12" height="10" fill="#a83a44"/><path d="M0,7 l3,-4 l3,4 l3,-4 l3,4" stroke="#f3ead8" stroke-width="1.3" fill="none"/></pattern>
+        <clipPath id="torsoClip"><path d="M-21,-84 C-32,-70 -37,-44 -33,-18 C-31,-6 31,-6 33,-18 C37,-44 32,-70 21,-84Z"/></clipPath>
+        <clipPath id="legClip"><rect x="-18" y="-54" width="14" height="52" rx="7"/><rect x="4" y="-54" width="14" height="52" rx="7"/></clipPath>
+      </defs>
+
+      <rect width="400" height="280" fill="url(#sky)"/>
+      <g id="sun" class="tap"><circle cx="310" cy="36" r="40" fill="#ffe7a6" opacity=".6" filter="url(#soft)"/><circle cx="310" cy="36" r="19" fill="#ffd877"/><circle cx="310" cy="36" r="19" fill="#fff2c4" opacity=".45" filter="url(#wc2)"/></g>
+      <g id="night" style="display:none"><g id="stars" fill="#fff"></g><circle cx="330" cy="46" r="34" fill="#fff6d8" opacity=".12"/><circle cx="330" cy="46" r="16" fill="#fff6d8"/><circle cx="325" cy="42" r="3" fill="#ece0b4"/><circle cx="335" cy="52" r="2.2" fill="#ece0b4"/>
+        <g id="bats" fill="#1a1f33"><path transform="translate(140,70)" d="M0,0 q-4,-4 -10,-2 q4,1 4,5 q3,-3 6,-1 q3,-2 6,1 q0,-4 4,-5 q-6,-2 -10,2Z"/><path transform="translate(170,58) scale(.8)" d="M0,0 q-4,-4 -10,-2 q4,1 4,5 q3,-3 6,-1 q3,-2 6,1 q0,-4 4,-5 q-6,-2 -10,2Z"/><path transform="translate(118,84) scale(.7)" d="M0,0 q-4,-4 -10,-2 q4,1 4,5 q3,-3 6,-1 q3,-2 6,1 q0,-4 4,-5 q-6,-2 -10,2Z"/></g></g>
+      <g id="clouds" filter="url(#wc)">
+        <g class="cloud" fill="#ffffff" opacity=".85"><ellipse cx="200" cy="40" rx="38" ry="12"/><ellipse cx="220" cy="32" rx="22" ry="12"/><ellipse cx="186" cy="33" rx="16" ry="9"/></g>
+        <g class="cloud c2" fill="#ffffff" opacity=".7"><ellipse cx="268" cy="84" rx="30" ry="9"/><ellipse cx="282" cy="77" rx="16" ry="9"/></g>
+      </g>
+      <g id="heavy" style="display:none" filter="url(#wc)">
+        <g class="cloud" fill="#9aa5b0"><ellipse cx="80" cy="30" rx="90" ry="26"/><ellipse cx="170" cy="18" rx="70" ry="22"/></g>
+        <g class="cloud c2" fill="#aab3bd"><ellipse cx="270" cy="28" rx="90" ry="26"/><ellipse cx="360" cy="40" rx="70" ry="22"/></g>
+      </g>
+
+      <!-- Hill Country -->
+      <path d="M0,150 Q50,128 110,140 Q170,122 240,136 Q310,118 400,134 L400,200 L0,200Z" fill="#a7b8a6" opacity=".75" filter="url(#wc)"/>
+
+      <!-- Downtown Austin skyline -->
+      <g id="skyline" filter="url(#wc2)">
+        <!-- UT Tower -->
+        <g fill="#e9dcc6"><rect x="112" y="104" width="16" height="66"/><rect x="110" y="100" width="20" height="5"/><rect x="114" y="88" width="12" height="12"/><path d="M114,88 L120,78 L126,88Z"/></g>
+        <circle cx="120" cy="94" r="2.8" fill="#fffaf0" stroke="#b9a684" stroke-width=".6"/>
+        <!-- office towers -->
+        <g fill="#c9d1d9"><rect x="140" y="118" width="16" height="52"/><rect x="196" y="104" width="18" height="66"/><rect x="236" y="128" width="16" height="42"/><rect x="214" y="122" width="12" height="48"/></g>
+        <!-- Frost Bank Tower -->
+        <path d="M162,170 V96 l5,-12 l6,-8 l6,8 l5,12 V170Z" fill="#b2c0ce"/><path d="M167,98 l6,-10 l6,10" stroke="#e6edf2" stroke-width="1" fill="none"/>
+        <!-- The Austonian -->
+        <path d="M186,170 V82 q6,-5 12,0 V170Z" fill="#bcc7d1"/>
+        <g id="windows" fill="#ffd87a" opacity="0"><rect x="144" y="126" width="2" height="3"/><rect x="150" y="144" width="2" height="3"/><rect x="167" y="110" width="2" height="3"/><rect x="176" y="132" width="2" height="3"/><rect x="190" y="96" width="2" height="3"/><rect x="190" y="124" width="2" height="3"/><rect x="200" y="114" width="2" height="3"/><rect x="207" y="140" width="2" height="3"/><rect x="218" y="132" width="2" height="3"/><rect x="240" y="138" width="2" height="3"/><rect x="246" y="152" width="2" height="3"/><rect x="118" y="120" width="2" height="3"/></g>
+        <!-- Texas State Capitol, pink granite -->
+        <g transform="translate(296,0)">
+          <rect x="-13" y="122" width="26" height="24" fill="#dcb6a3"/>
+          <g stroke="#f0dcd0" stroke-width="1.2"><path d="M-9,125 v18 M-4,125 v18 M1,125 v18 M6,125 v18 M10,125 v18"/></g>
+          <path d="M-15,123 Q-15,99 0,97 Q15,99 15,123Z" fill="#dfbcaa"/>
+          <path d="M-9,113 Q0,103 9,113" stroke="#f0dcd0" stroke-width="1" fill="none"/>
+          <rect x="-16" y="121" width="32" height="3" fill="#d1a893"/>
+          <rect x="-3.5" y="89" width="7" height="9" fill="#dcb6a3"/><path d="M-4.5,89 Q0,83 4.5,89Z" fill="#d1a893"/>
+          <path d="M0,83 v-6" stroke="#c49a84" stroke-width="1.4"/><circle cx="0" cy="76" r="1.6" fill="#c49a84"/>
+          <rect x="-48" y="150" width="96" height="20" fill="url(#granite)"/>
+          <rect x="-54" y="146" width="16" height="24" fill="url(#granite)"/><rect x="38" y="146" width="16" height="24" fill="url(#granite)"/>
+          <g fill="#f0dcd0"><rect x="-34" y="154" width="2" height="12"/><rect x="-27" y="154" width="2" height="12"/><rect x="-20" y="154" width="2" height="12"/><rect x="18" y="154" width="2" height="12"/><rect x="25" y="154" width="2" height="12"/><rect x="32" y="154" width="2" height="12"/><rect x="-49" y="152" width="2" height="12"/><rect x="47" y="152" width="2" height="12"/></g>
+          <rect x="-14" y="146" width="28" height="24" fill="#e6c6b6"/>
+          <g fill="#d1a893"><rect x="-10" y="150" width="2" height="18"/><rect x="-4" y="150" width="2" height="18"/><rect x="2" y="150" width="2" height="18"/><rect x="8" y="150" width="2" height="18"/></g>
+          <path d="M-16,146 L0,137 L16,146Z" fill="#d9b3a1"/>
+        </g>
+      </g>
+
+      <!-- Lady Bird Lake & the Congress Avenue Bridge -->
+      <rect x="0" y="168" width="400" height="28" fill="url(#lake)"/>
+      <g class="ripple" stroke="#d9e8f0" stroke-width="1" opacity=".7"><path d="M20,190 h18 M90,186 h24 M170,192 h16 M250,188 h22 M330,191 h18"/></g>
+      <g id="bridge" filter="url(#wc2)">
+        <rect x="0" y="172" width="400" height="5" fill="#d6c7ad"/>
+        <rect x="0" y="169" width="400" height="3" fill="#bfae92"/>
+        <g fill="#d6c7ad"><path d="M0,177 h400 v8 h-8 q-17,-8 -34,0 h-6 q-17,-8 -34,0 h-6 q-17,-8 -34,0 h-6 q-17,-8 -34,0 h-6 q-17,-8 -34,0 h-6 q-17,-8 -34,0 h-6 q-17,-8 -34,0 h-6 q-17,-8 -34,0 h-6 q-17,-8 -34,0 h-6 q-17,-8 -34,0 h-10Z"/></g>
+        <g fill="#b8a78c"><rect x="38" y="177" width="6" height="12"/><rect x="78" y="177" width="6" height="12"/><rect x="118" y="177" width="6" height="12"/><rect x="158" y="177" width="6" height="12"/><rect x="198" y="177" width="6" height="12"/><rect x="238" y="177" width="6" height="12"/><rect x="278" y="177" width="6" height="12"/><rect x="318" y="177" width="6" height="12"/><rect x="358" y="177" width="6" height="12"/></g>
+        <g fill="#8c7b62"><rect x="60" y="163" width="2" height="7"/><rect x="140" y="163" width="2" height="7"/><rect x="220" y="163" width="2" height="7"/><rect x="300" y="163" width="2" height="7"/></g>
+        <g id="lamps" fill="#ffe7a0" opacity=".0"><circle cx="61" cy="162" r="2"/><circle cx="141" cy="162" r="2"/><circle cx="221" cy="162" r="2"/><circle cx="301" cy="162" r="2"/></g>
+      </g>
+
+      <!-- near shore: grass, limestone wall and path -->
+      <path d="M0,196 C100,192 280,196 400,193 L400,280 L0,280Z" fill="#9db07a" filter="url(#wc)"/>
+      <g filter="url(#wc2)" fill="#e7dcc4" stroke="#cbbd9f" stroke-width=".8">
+        <rect x="0" y="210" width="34" height="12" rx="2"/><rect x="34" y="210" width="28" height="12" rx="2"/><rect x="62" y="210" width="36" height="12" rx="2"/><rect x="290" y="210" width="34" height="12" rx="2"/><rect x="324" y="210" width="30" height="12" rx="2"/><rect x="354" y="210" width="46" height="12" rx="2"/>
+        <rect x="14" y="200" width="30" height="10" rx="2"/><rect x="44" y="200" width="34" height="10" rx="2"/><rect x="306" y="200" width="32" height="10" rx="2"/><rect x="338" y="200" width="36" height="10" rx="2"/><rect x="374" y="200" width="26" height="10" rx="2"/>
+      </g>
+      <path d="M0,222 C120,218 280,220 400,218 L400,280 L0,280Z" fill="#e2d2b2" filter="url(#wc)"/>
+      <g fill="#cdbb98" opacity=".7"><ellipse cx="80" cy="250" rx="10" ry="2"/><ellipse cx="300" cy="258" rx="12" ry="2"/><ellipse cx="160" cy="268" rx="8" ry="1.6"/></g>
+      <g id="puddles" style="display:none" fill="#a6bccd" opacity=".75"><ellipse cx="110" cy="252" rx="30" ry="4"/><ellipse cx="300" cy="262" rx="24" ry="3"/></g>
+
+      <!-- Moonlight tower -->
+      <g filter="url(#wc2)">
+        <path d="M352,222 L360,58 L368,222" stroke="#6f7c86" stroke-width="2" fill="none"/>
+        <path d="M354,200 L366,180 M354,180 L366,160 M355,160 L365,140 M356,140 L364,120 M357,120 L363,100 M358,100 L362,80" stroke="#6f7c86" stroke-width="1"/>
+        <path d="M366,200 L354,180 M366,180 L355,160 M365,160 L356,140 M364,140 L357,120 M363,120 L358,100" stroke="#6f7c86" stroke-width="1"/>
+        <circle cx="360" cy="56" r="7" fill="none" stroke="#6f7c86" stroke-width="2"/>
+        <circle id="mtlamp" cx="360" cy="56" r="4" fill="#d6dade"/>
+      </g>
+      <circle id="mtglow" cx="360" cy="56" r="26" fill="url(#glowG)" opacity="0"/>
+
+      <!-- live oak framing the left -->
+      <g filter="url(#wc2)">
+        <path d="M38,236 C40,216 38,200 32,190 C26,182 18,176 10,172 C20,172 30,178 36,184 C38,172 36,160 30,150 C38,156 44,166 46,176 C50,164 58,152 70,146 C62,158 56,172 54,186 C54,206 54,222 56,236Z" fill="#6a5442"/>
+        <g fill="#56704f"><circle cx="8" cy="146" r="26"/><circle cx="34" cy="120" r="32"/><circle cx="70" cy="124" r="30"/><circle cx="94" cy="144" r="18"/><circle cx="46" cy="146" r="22"/><circle cx="-8" cy="160" r="16"/></g>
+        <g fill="#728c60" opacity=".85"><circle cx="34" cy="108" r="15"/><circle cx="70" cy="112" r="13"/><circle cx="8" cy="136" r="11"/><circle cx="88" cy="138" r="8"/></g>
+      </g>
+
+      <!-- agave, prickly pear and a Texas flag pennant -->
+      <g filter="url(#wc2)">
+        <g fill="#7f9c8a"><path d="M318,246 C312,228 304,218 296,214 C306,222 314,232 318,246Z"/><path d="M320,246 C320,226 322,212 326,204 C326,216 324,232 322,246Z"/><path d="M322,246 C330,228 340,220 350,216 C340,226 330,236 324,246Z"/><path d="M318,246 C306,238 296,236 288,238 C298,240 308,244 318,248Z"/><path d="M324,246 C336,238 346,238 356,240 C346,242 334,246 324,248Z"/></g>
+        <g fill="#86a35e"><ellipse cx="382" cy="238" rx="9" ry="12"/><ellipse cx="372" cy="222" rx="7" ry="9" transform="rotate(-25 372 222)"/><ellipse cx="392" cy="220" rx="6" ry="8" transform="rotate(20 392 220)"/></g>
+        <g fill="#d2566a"><circle cx="370" cy="213" r="2.4"/><circle cx="394" cy="212" r="2.2"/></g>
+      </g>
+
+      <!-- the cat, on the garden wall, washing her paw -->
+      <g transform="translate(322,203) scale(1.3)">
+        <g id="cat" class="tap">
+          <rect x="-16" y="-48" width="32" height="50" fill="transparent"/>
+          <path id="catTail" d="M7,-1 C16,-1 19,-8 15,-15 C13,-18 15,-21 18,-20" stroke="#22222a" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M-9,0 C-11,-10 -8,-20 -4,-23 L4,-23 C8,-20 11,-10 9,0Z" fill="#22222a"/>
+          <path d="M-3,-21 C-5,-13 -4,-5 0,-1 C4,-5 5,-13 3,-21Z" fill="#f4f1ea"/>
+          <g id="c-sweater" style="display:none"><path d="M-9,-1 C-11,-10 -8,-20 -4,-23 L4,-23 C8,-20 11,-10 9,-1Z" fill="url(#knitRed)"/><path d="M-9,-3 h18" stroke="#7d2a33" stroke-width="1.6"/></g>
+          <g id="c-raincoat" style="display:none"><path d="M-9.5,-1 C-11.5,-10 -8.5,-20 -4,-23.5 L4,-23.5 C8.5,-20 11.5,-10 9.5,-1Z" fill="#f1c232"/><path d="M0,-22 V-2" stroke="#c99a1e" stroke-width=".8"/><circle cx="2" cy="-15" r=".9" fill="#c99a1e"/><circle cx="2" cy="-9" r=".9" fill="#c99a1e"/></g>
+          <ellipse cx="-4" cy="0" rx="3" ry="1.6" fill="#f4f1ea"/><ellipse cx="4" cy="0" rx="3" ry="1.6" fill="#f4f1ea"/>
+          <g id="catHead">
+                        <path d="M-6.5,-31 L-6.5,-39 L-1.5,-34Z M6.5,-31 L6.5,-39 L1.5,-34Z" fill="#22222a"/>
+            <path d="M-5.5,-33 L-5.5,-37 L-3,-34.5Z M5.5,-33 L5.5,-37 L3,-34.5Z" fill="#e7a3ad"/>
+            <circle cx="0" cy="-28" r="7.2" fill="#22222a"/>
+            <path d="M-1.6,-34.5 L0,-28 L1.6,-34.5" fill="#f4f1ea"/>
+            <ellipse cx="0" cy="-25" rx="3.8" ry="2.8" fill="#f4f1ea"/>
+            <g id="catEyesOpen"><ellipse cx="-2.8" cy="-29" rx="1.3" ry="1.5" fill="#b9cc4a"/><ellipse cx="2.8" cy="-29" rx="1.3" ry="1.5" fill="#b9cc4a"/><rect x="-3.1" y="-30.2" width=".6" height="2.4" fill="#111"/><rect x="2.5" y="-30.2" width=".6" height="2.4" fill="#111"/></g>
+            <g id="catEyesShut"><path d="M-4,-29 q1.2,1 2.4,0 M1.6,-29 q1.2,1 2.4,0" stroke="#111" stroke-width=".7" fill="none"/></g>
+            <path d="M-.9,-26.4 h1.8 l-.9,1Z" fill="#e7a3ad"/>
+            <path d="M-4,-25 h-5 M-4,-24 l-5,1 M4,-25 h5 M4,-24 l5,1" stroke="#cfcac0" stroke-width=".35"/>
+            <g id="c-shades" style="display:none"><rect x="-5.4" y="-30.6" width="4.4" height="3.2" rx="1.2" fill="#2b2b33" stroke="#555" stroke-width=".3"/><rect x="1" y="-30.6" width="4.4" height="3.2" rx="1.2" fill="#2b2b33" stroke="#555" stroke-width=".3"/><path d="M-1,-29.4 h2" stroke="#555" stroke-width=".5"/></g>
+            <g id="c-nightcap" style="display:none"><path d="M-7,-33 C-6,-41 4,-43 8,-36 C12,-40 15,-38 15,-34 C12,-36 10,-35 7,-33Z" fill="#a83a44"/><path d="M-7.5,-33 C-2,-35 3,-35 7.5,-33" stroke="#f6f1e6" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="15" cy="-34" r="1.8" fill="#f6f1e6"/></g>
+            <g id="c-rainhat" style="display:none"><path d="M-10,-33.5 C-6,-31.5 6,-31.5 10,-33.5 C8,-35.5 -8,-35.5 -10,-33.5Z" fill="#dcaa22"/><path d="M-6,-34 C-6,-41 6,-41 6,-34Z" fill="#f1c232"/></g>
+          </g>
+          <g id="c-scarf" style="display:none"><path d="M-6,-23 C-2,-20 2,-20 6,-23 L6.5,-20 C2,-17 -2,-17 -6.5,-20Z" fill="url(#knit)"/><path d="M2.5,-19 L4,-11 L7,-11.6 L5.4,-19.6Z" fill="url(#knit)"/></g>
+          <g id="catPaw"><path d="M-1,-14 C-1,-18 0,-22 1,-24 C2.4,-24.4 3.6,-23.6 3.4,-22 C3,-19 2.6,-16 2.4,-13Z" fill="#f4f1ea" stroke="#d9d4c9" stroke-width=".3"/><path d="M.4,-24 C.8,-25.4 1.8,-25.6 2.4,-25" stroke="#e7a3ad" stroke-width=".8" fill="none" id="catTongue"/></g>
+        </g>
+      </g>
+      <g id="leaves"></g>
+      <rect id="nightTint" width="400" height="280" fill="#1b2550" opacity="0" pointer-events="none"/>
+
+      <!-- BERTIE -->
+      <g transform="translate(0,262)">
+        <g id="walk" style="transform:translateX(-120px)">
+          <!-- side view, walking in -->
+          <g id="side" transform="scale(1.15)"><g id="sideBody">
+            <ellipse cx="4" cy="1" rx="42" ry="4.5" fill="#3a2e20" opacity=".16"/>
+            <g class="leg lb"><rect x="-27" y="-26" width="10" height="26" rx="5" fill="#cf8f55"/></g>
+            <g class="leg la"><rect x="21" y="-26" width="10" height="26" rx="5" fill="#cf8f55"/></g>
+            <g id="tailS"><path d="M-30,-46 C-36,-58 -37,-70 -33,-78 C-27,-74 -26,-62 -23,-50Z" fill="#dda065" filter="url(#fur)"/></g>
+            <g filter="url(#fur)">
+              <path d="M-34,-44 C-36,-56 -24,-60 -4,-60 C14,-60 26,-60 32,-52 C38,-44 36,-30 28,-26 C12,-22 -16,-22 -28,-26 C-36,-30 -36,-38 -34,-44Z" fill="url(#furBody)"/>
+              <path d="M-26,-26 q4,5 8,0 q4,5 8,0 q4,5 8,0 q4,5 8,0 q4,5 8,0 q4,5 8,0 L30,-27 C14,-23 -14,-23 -26,-26Z" fill="#f2cf9e"/>
+              <path d="M16,-58 C22,-70 28,-76 36,-76 L46,-58 C40,-48 28,-44 20,-48Z" fill="url(#furBody)"/>
+              <path d="M27,-78 L28,-99 L38,-82Z" fill="#da9658"/><path d="M35,-81 L42,-101 L48,-80Z" fill="#e2a466"/>
+              <circle cx="38" cy="-67" r="17" fill="url(#furHead)"/>
+              <ellipse cx="52" cy="-61" rx="10" ry="8" fill="#f6d6a8"/>
+              <ellipse cx="50" cy="-54" rx="8" ry="5.5" fill="#f6d6a8"/>
+            </g>
+            <path d="M30,-82 L30.5,-94 L35,-83Z" fill="#f4cfa6"/>
+            <g class="leg la"><rect x="-21" y="-28" width="11" height="28" rx="5.5" fill="#e2a466"/><ellipse cx="-15" cy="-1" rx="6.5" ry="3" fill="#f2cf9e"/></g>
+            <g class="leg lb"><rect x="25" y="-28" width="11" height="28" rx="5.5" fill="#e2a466"/><ellipse cx="31" cy="-1" rx="6.5" ry="3" fill="#f2cf9e"/></g>
+            <circle cx="61" cy="-63" r="3.8" fill="#2a1f1c"/><circle cx="60" cy="-64.2" r="1.1" fill="#8a7570"/>
+            <ellipse cx="45" cy="-70" rx="3.1" ry="3.5" fill="#231a16"/><circle cx="46.1" cy="-71.3" r="1.1" fill="#fff"/>
+            <path d="M42,-76 q3,-2 6,0" stroke="#f6d6a8" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            <path d="M58,-56 C55,-54 52,-54 49,-56" stroke="#6b4a36" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          </g></g>
+
+          <!-- front view, sitting for the camera -->
+          <g id="front" class="tap" style="display:none">
+            <rect x="-64" y="-200" width="128" height="204" fill="transparent"/>
+            <g transform="scale(1)">
+              <!-- umbrella stands behind him -->
+              <g id="o-umbrella" style="display:none">
+                <path d="M44,-4 L44,-196" stroke="#5a4636" stroke-width="2.6"/>
+                <path d="M44,-4 q0,8 -7,8" stroke="#5a4636" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+                <path d="M-34,-178 Q22,-236 78,-178 Q64,-186 50,-178 Q36,-186 22,-178 Q8,-186 -6,-178 Q-20,-186 -34,-178Z" fill="#2f5f8a"/>
+                <path d="M22,-212 L22,-178 M-6,-186 Q4,-210 22,-212 Q40,-210 50,-186" stroke="#1f4466" stroke-width="1" fill="none" opacity=".7"/>
+                <circle cx="22" cy="-214" r="2.4" fill="#d9a43a"/>
+              </g>
+              <ellipse cx="0" cy="1" rx="52" ry="6" fill="#3a2e20" opacity=".18"/>
+              <g id="tailF"><path d="M30,-38 C42,-46 48,-62 44,-78 C37,-76 36,-60 26,-48Z" fill="#dda065" filter="url(#fur)"/></g>
+              <g filter="url(#fur)">
+                <ellipse cx="-27" cy="-22" rx="20" ry="20" fill="#d9975a"/>
+                <ellipse cx="27" cy="-22" rx="20" ry="20" fill="#d9975a"/>
+                <path d="M-21,-84 C-32,-70 -37,-44 -33,-18 C-31,-6 31,-6 33,-18 C37,-44 32,-70 21,-84Z" fill="url(#furBody)"/>
+                <path d="M-13,-82 C-20,-64 -18,-42 -11,-26 L11,-26 C18,-42 20,-64 13,-82Z" fill="#f3cd98"/>
+              </g>
+              <ellipse cx="-40" cy="-4" rx="12" ry="5.5" fill="#efc38e"/><ellipse cx="40" cy="-4" rx="12" ry="5.5" fill="#efc38e"/>
+              <!-- sweater & raincoat follow his body exactly -->
+              <g id="o-sweater" style="display:none" clip-path="url(#torsoClip)">
+                <rect x="-40" y="-90" width="80" height="90" fill="url(#knit)"/>
+                <rect x="-40" y="-20" width="80" height="8" fill="#1f4466"/>
+                <path d="M-40,-18 h80" stroke="#f3ead8" stroke-width="1" stroke-dasharray="2 2"/>
+              </g>
+              <g id="o-raincoat" style="display:none" clip-path="url(#torsoClip)">
+                <rect x="-40" y="-90" width="80" height="90" fill="#f1c232"/>
+                <path d="M0,-84 V-8" stroke="#c99a1e" stroke-width="1.4"/>
+                <g fill="#c99a1e"><circle cx="5" cy="-62" r="2"/><circle cx="5" cy="-46" r="2"/><circle cx="5" cy="-30" r="2"/></g>
+                <rect x="-40" y="-20" width="80" height="4" fill="#dcaa22"/>
+              </g>
+              <g filter="url(#fur)">
+                <rect x="-18" y="-54" width="14" height="52" rx="7" fill="#e3a466"/>
+                <rect x="4" y="-54" width="14" height="52" rx="7" fill="#e3a466"/>
+              </g>
+              <g id="o-sleeves" style="display:none" clip-path="url(#legClip)"><rect x="-20" y="-60" width="40" height="34" fill="url(#knit)"/><rect x="-20" y="-30" width="40" height="5" fill="#1f4466"/></g>
+              <g id="o-rsleeves" style="display:none" clip-path="url(#legClip)"><rect x="-20" y="-60" width="40" height="36" fill="#f1c232"/><rect x="-20" y="-27" width="40" height="3" fill="#dcaa22"/></g>
+              <ellipse cx="-11" cy="-4" rx="10" ry="5.6" fill="#f6d6a8"/><ellipse cx="11" cy="-4" rx="10" ry="5.6" fill="#f6d6a8"/>
+              <path d="M-14,-6 v3 M-11,-6 v3.4 M-8,-6 v3 M8,-6 v3 M11,-6 v3.4 M14,-6 v3" stroke="#d8a776" stroke-width=".9"/>
+              <g id="o-boots" style="display:none"><rect x="-20" y="-16" width="18" height="16" rx="5" fill="#f1c232"/><rect x="2" y="-16" width="18" height="16" rx="5" fill="#f1c232"/><path d="M-20,-12 h18 M2,-12 h18" stroke="#c99a1e" stroke-width="1.4"/></g>
+              <!-- neckwear -->
+              <g id="o-scarf" style="display:none">
+                <path d="M-26,-88 C-12,-76 12,-76 26,-88 L27,-77 C12,-64 -12,-64 -27,-77Z" fill="url(#knitRed)"/>
+                <path d="M8,-72 L12,-40 L23,-42 L19,-74Z" fill="url(#knitRed)"/>
+                <path d="M12,-40 l1,5 M16,-40.6 l1,5 M20,-41.3 l1,5" stroke="#a83a44" stroke-width="1.6"/>
+              </g>
+              <g id="o-bandana" style="display:none">
+                <path d="M-25,-86 C-10,-76 10,-76 25,-86 L0,-58Z" fill="#2f5f8a"/>
+                <g fill="#f3ead8"><circle cx="-10" cy="-78" r="1.2"/><circle cx="0" cy="-74" r="1.2"/><circle cx="10" cy="-78" r="1.2"/><circle cx="-4" cy="-68" r="1.2"/><circle cx="4" cy="-68" r="1.2"/></g>
+              </g>
+              <!-- head -->
+              <g id="headF">
+                <g id="o-hoodback" style="display:none"><ellipse cx="0" cy="-108" rx="42" ry="38" fill="#f1c232"/></g>
+                <g filter="url(#fur)">
+                  <path d="M-30,-116 L-34,-152 L-8,-128Z" fill="#d68d4e"/>
+                  <path d="M30,-116 L34,-152 L8,-128Z" fill="#d68d4e"/>
+                </g>
+                <path d="M-26,-120 L-29,-144 L-13,-128Z" fill="#f6dcc0"/><path d="M26,-120 L29,-144 L13,-128Z" fill="#f6dcc0"/>
+                <g filter="url(#fur)">
+                  <ellipse cx="0" cy="-106" rx="33" ry="29" fill="url(#furHead)"/>
+                  <circle cx="-20" cy="-92" r="13" fill="#f2c48c"/><circle cx="20" cy="-92" r="13" fill="#f2c48c"/>
+                  <circle cx="0" cy="-86" r="13" fill="#f7d8ac"/>
+                  <ellipse cx="0" cy="-92" rx="16" ry="11" fill="#f9e0b8"/>
+                  <path d="M-6,-130 Q0,-120 6,-130" stroke="#f6d3a0" stroke-width="5" fill="none" stroke-linecap="round"/>
+                </g>
+                <g id="o-hat" style="display:none">
+                  <ellipse cx="0" cy="-128" rx="40" ry="8" fill="#e8cd8a"/>
+                  <path d="M-21,-129 C-21,-150 21,-150 21,-129Z" fill="#efd89c"/>
+                  <path d="M-21,-133 C-8,-130 8,-130 21,-133" stroke="#2f5f8a" stroke-width="4" fill="none"/>
+                  <path d="M-36,-127 C-18,-123 18,-123 36,-127" stroke="#d1b26a" stroke-width="1" fill="none"/>
+                </g>
+                <g id="o-nightcap" style="display:none">
+                  <path d="M-33,-118 C-30,-146 6,-154 28,-130 C40,-142 52,-140 56,-124 C48,-130 40,-126 33,-118Z" fill="#4c6a9a"/>
+                  <path d="M-34,-117 C-12,-126 12,-126 34,-117" stroke="#f6f1e6" stroke-width="5" fill="none" stroke-linecap="round"/>
+                  <circle cx="56" cy="-124" r="5.5" fill="#f6f1e6"/>
+                  <g fill="#d9a43a"><circle cx="-12" cy="-136" r="1.4"/><circle cx="6" cy="-140" r="1.4"/><circle cx="22" cy="-132" r="1.4"/></g>
+                </g>
+                <g id="o-hoodrim" style="display:none"><path d="M-37,-92 C-42,-140 42,-140 37,-92" stroke="#f1c232" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M-37,-92 C-42,-140 42,-140 37,-92" stroke="#dcaa22" stroke-width="1.2" fill="none" transform="translate(0,4)"/></g>
+                <!-- face -->
+                <g class="eye"><ellipse cx="-12.5" cy="-108" rx="5" ry="5.6" fill="#231a16"/><circle cx="-10.8" cy="-110" r="1.8" fill="#fff"/><circle cx="-14" cy="-106" r=".8" fill="#fff" opacity=".7"/></g>
+                <g class="eye"><ellipse cx="12.5" cy="-108" rx="5" ry="5.6" fill="#231a16"/><circle cx="14.2" cy="-110" r="1.8" fill="#fff"/><circle cx="11" cy="-106" r=".8" fill="#fff" opacity=".7"/></g>
+                <path d="M-18,-117 q5,-3 10,-.5 M8,-117.5 q5,-2.5 10,.5" stroke="#f5d2a3" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+                <ellipse cx="-21" cy="-97" rx="4.5" ry="2.6" fill="#ee9a8f" opacity=".35"/><ellipse cx="21" cy="-97" rx="4.5" ry="2.6" fill="#ee9a8f" opacity=".35"/>
+                <path d="M-6.5,-99 C-6.5,-103.5 6.5,-103.5 6.5,-99 C6.5,-95 2.5,-93 0,-93 C-2.5,-93 -6.5,-95 -6.5,-99Z" fill="#2a1f1c"/>
+                <ellipse cx="-2" cy="-100.5" rx="2" ry="1" fill="#8a7570"/>
+                <path d="M0,-93 v3.5 M-6,-87.5 Q-2.5,-85 0,-89.5 Q2.5,-85 6,-87.5" stroke="#6b4a36" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+                <path id="tongue" d="M-3.2,-86.6 C-3.2,-80 3.2,-80 3.2,-86.6Z" fill="#e8848f" style="display:none"/>
+                <g id="o-shades" style="display:none">
+                  <path d="M-30,-112 L-21,-110 M30,-112 L21,-110" stroke="#2b2b33" stroke-width="1.6"/>
+                  <rect x="-22" y="-114.5" width="18" height="12" rx="5.5" fill="#2b2b33"/><rect x="4" y="-114.5" width="18" height="12" rx="5.5" fill="#2b2b33"/>
+                  <path d="M-4,-110 Q0,-112.5 4,-110" stroke="#2b2b33" stroke-width="2" fill="none"/>
+                  <path d="M-19,-111.5 l5,0 M7,-111.5 l5,0" stroke="#fff" stroke-width="1.4" opacity=".55" stroke-linecap="round"/>
+                </g>
+              </g>
+            </g>
+            <!-- speech bubble -->
+            <g id="bubble" opacity="0" style="transition:opacity .4s">
+              <path id="bubblePath" d="" fill="#ffffff" stroke="#c8d3d6" stroke-width="1"/>
+              <text id="bubbleText" x="98" y="-177" text-anchor="middle" font-family="Lora,Georgia,serif" font-style="italic" font-size="12.5" fill="#1f2b3d">Hello!</text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(322,203) scale(1.3)">
+        <g id="catBubble" opacity="0" style="transition:opacity .4s">
+          <path id="catBubblePath" d="" fill="#ffffff" stroke="#c8d3d6" stroke-width=".8"/>
+          <text id="catBubbleText" x="-30" y="-58" text-anchor="middle" font-family="Lora,Georgia,serif" font-style="italic" font-size="8.4" fill="#1f2b3d">Purr.</text>
+        </g>
+      </g>
+      <g id="rain" style="display:none"></g>
+      <g id="hearts"></g>
+      <rect width="400" height="280" fill="url(#vig)" pointer-events="none"/>
+      <rect width="400" height="280" filter="url(#grain)" pointer-events="none"/>
+    </svg>
+    <div class="wxo" aria-live="polite">
+      <div class="t" id="wxNow">52°</div>
+      <div class="c" id="wxWhat">Sunny and chilly</div>
+      <div class="hl" id="wxHL">High 56° · Low 38°</div>
+    </div>
+    <button class="replay" id="replay" aria-label="Watch Bertie walk in again"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M4 3.5v4.2h4.2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+  <div class="hint" id="hint">Tap Bertie to dress him for the weather</div>
+
+  <nav class="contents" id="contents" aria-label="Sections"></nav>
+
+  <section class="card" id="today-in-austin">
+    <div class="card-h"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="#f3e6e2"/><path d="M12,35 h24 M15,35 v-8 h18 v8 M18,27 Q24,13 30,27 M24,13 v-5" stroke="#a5604f" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>
+      <div><h2>Austin Today</h2><p>A little news from around town</p></div></div>
+    <ul class="news" id="news"></ul>
+  </section>
+
+  <div id="sections" style="display:flex;flex-direction:column;gap:22px"></div>
+
+  <section class="card" id="family">
+    <div class="card-h"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="#fbe7d6"/><path d="M8,16 C14,16 16,20 20,22 L24,32 L28,22 C32,20 34,16 40,16 C38,20 34,22 30,24 L26,36 h-4 L18,24 C14,22 10,20 8,16Z" fill="#bf5700"/></svg>
+      <div><h2>Impress the Family</h2><p>Longhorn news to mention at dinner</p></div></div>
+    <div id="horns"></div>
+  </section>
+
+  <footer class="foot">
+    <span id="updated">Updated this morning</span>
+    <span>Made with love for Mama Lou, by Taylor &amp; Bertie</span>
+  </footer>
+</main>
+
+<script>
+(async function(){
+  let D = JSON.parse(document.getElementById('daily').textContent);
+  // On the home-screen version (hosted on the open web) pull today's listings and live Austin weather.
+  const hosted = location.protocol === 'https:' && !/claude\.ai|claudeusercontent|anthropic/.test(location.hostname);
+  let LIVE = null;
+  if (hosted){
+    const getJSON = (u, ms) => Promise.race([fetch(u, {cache:'no-store'}).then(r => r.ok ? r.json() : null), new Promise(r => setTimeout(()=>r(null), ms))]).catch(()=>null);
+    const [dj, wx] = await Promise.all([
+      getJSON('daily.json?t=' + Date.now(), 3000),
+      getJSON('https://api.open-meteo.com/v1/forecast?latitude=30.2672&longitude=-97.7431&current=temperature_2m,weather_code,is_day&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset&temperature_unit=fahrenheit&timezone=America%2FChicago&forecast_days=1', 3500)
+    ]);
+    if (dj && dj.sections && String(dj.updated) >= String(D.updated)) D = dj;
+    if (wx && wx.current && wx.daily) LIVE = wx;
+  }
+  const $ = id => document.getElementById(id);
+  const NS = 'http://www.w3.org/2000/svg';
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const safeUrl = u => (typeof u === 'string' && u.startsWith('https://')) ? u : '#';
+
+  // ---- Date & time in Austin ----
+  const now = new Date();
+  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(now).map(p=>[p.type,p.value]));
+  const todayISO = `${parts.year}-${parts.month}-${parts.day}`;
+  const hour = (+parts.hour % 24) + (+parts.minute)/60;
+  $('dateline').textContent = new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',weekday:'long',month:'long',day:'numeric'}).format(now);
+  const part = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  $('hello').innerHTML = `${part}, <em>Mama Lou</em>`;
+
+  // ---- Weather ----
+  const W = Object.assign({}, D.weather || {});
+  if (LIVE){
+    const c = LIVE.current.weather_code, dd = LIVE.daily;
+    W.condition = c >= 95 ? 'storm' : (c >= 51 && c <= 67) || (c >= 80 && c <= 82) ? 'rain' : (c >= 71 && c <= 77) || c === 85 || c === 86 ? 'cloudy' : c >= 2 ? 'cloudy' : 'sunny';
+    W.summary = ({sunny:'Clear', cloudy: c === 2 ? 'Partly cloudy' : c >= 45 && c <= 48 ? 'Foggy' : 'Cloudy', rain:'Rainy', storm:'Thunderstorms'})[W.condition];
+    const tt = dd.temperature_2m_max?.[0], tl = dd.temperature_2m_min?.[0];
+    if (isFinite(tt)) W.high = Math.round(tt); if (isFinite(tl)) W.low = Math.round(tl);
+    const hm = s => (String(s||'').split('T')[1]||'').slice(0,5);
+    if (dd.sunrise?.[0]) W.sunrise = hm(dd.sunrise[0]); if (dd.sunset?.[0]) W.sunset = hm(dd.sunset[0]);
+  }
+  const toH = s => { const [h,m] = String(s||'').split(':').map(Number); return isFinite(h) ? h + (m||0)/60 : null; };
+  const rise = toH(W.sunrise) ?? 7, set = toH(W.sunset) ?? 17.5;
+  const isNight = LIVE ? LIVE.current.is_day === 0 : (hour < rise - .3 || hour > set + .4);
+  const fresh = D.updated === todayISO;
+  function tempAt(h){
+    const lo = W.low, hi = W.high; if (!isFinite(lo) || !isFinite(hi)) return null;
+    let f; if (h >= 6 && h <= 15) f = (1 - Math.cos(Math.PI*(h-6)/9))/2;
+    else { const x = h > 15 ? h - 15 : h + 9; f = (1 + Math.cos(Math.PI*x/15))/2; }
+    return Math.round(lo + (hi-lo)*f);
+  }
+  const tNow = LIVE && isFinite(LIVE.current.temperature_2m) ? Math.round(LIVE.current.temperature_2m) : fresh ? tempAt(hour) : null;
+  const cond = String(W.condition||'sunny').toLowerCase();
+  const wet = /rain|storm|shower|drizzle/.test(cond);
+  const cloudy = /cloud|overcast|fog/.test(cond);
+  const refT = tNow ?? W.high ?? 70;
+  const cold = refT < 58, hot = refT >= 88;
+  const mood = wet ? 'rain' : isNight ? 'night' : cold ? 'cold' : hot ? 'hot' : cloudy ? 'cloudy' : 'sunny';
+
+  $('wxNow').textContent = (tNow != null ? tNow : (W.high ?? '–')) + '°';
+  $('wxWhat').textContent = (fresh || LIVE ? '' : 'Lately: ') + (W.summary || '');
+  $('wxHL').textContent = `High ${W.high}° · Low ${W.low}°`;
+
+  const SKIES = {
+    sunny:['#8fbde0','#d9e9f0','#f4e9d2'], cold:['#a6cbe6','#e4eff3','#f1ead9'], hot:['#83b8e2','#eaeed6','#f6dca4'],
+    cloudy:['#b3bfc9','#dbe1e3','#e9e5da'], rain:['#7b8b9a','#b2bcc4','#d0cfc7'], night:['#1b2550','#35447a','#6f6890']
+  };
+  const sk = SKIES[mood]; ['sk1','sk2','sk3'].forEach((id,i)=>$(id).setAttribute('stop-color', sk[i]));
+  if (isNight){ $('lk1').setAttribute('stop-color','#3a4b78'); $('lk2').setAttribute('stop-color','#283760'); }
+  if (wet){ $('lk1').setAttribute('stop-color','#7d93a3'); $('lk2').setAttribute('stop-color','#647c8e'); }
+  const show = (id, on) => { const el = $(id); if (el) el.style.display = on ? '' : 'none'; };
+  show('sun', !isNight && !wet && !cloudy);
+  show('night', isNight);
+  show('clouds', !wet);
+  show('heavy', wet || (cloudy && !isNight));
+  show('puddles', wet);
+  if (isNight){
+    $('windows').setAttribute('opacity','1'); $('lamps').setAttribute('opacity','1');
+    $('mtlamp').setAttribute('fill','#fff1c4'); $('mtglow').setAttribute('opacity','.75');
+    $('nightTint').setAttribute('opacity','.32');
+    const st = $('stars');
+    for (let i=0;i<26;i++){ const c=document.createElementNS(NS,'circle'); c.setAttribute('cx',(i*53)%400); c.setAttribute('cy',8+((i*37)%90)); c.setAttribute('r', i%3?0.8:1.2); c.setAttribute('class','star'); c.style.animationDelay = (-(i%7)*.35)+'s'; st.appendChild(c); }
+  }
+  if (wet){
+    const r = $('rain'); r.style.display='';
+    for (let i=0;i<70;i++){ const l=document.createElementNS(NS,'path'); const x=(i*61)%430, y=(i*29)%60; l.setAttribute('d',`M${x},${y} l-3,10`); l.setAttribute('stroke','#eef3f7'); l.setAttribute('stroke-width','1.2'); l.setAttribute('opacity','.75'); l.setAttribute('class','drop'); l.style.animationDelay=(-(i%13)*.07)+'s'; l.style.animationDuration=(.7+(i%5)*.08)+'s'; r.appendChild(l); }
+  }
+  const mon = +parts.month;
+  if (!wet && (mon === 10 || mon === 11 || mon === 12)){
+    const lv = $('leaves'); const cols = ['#c8602f','#d99a3a','#a84a2a','#b8862f'];
+    for (let i=0;i<6;i++){ const p=document.createElementNS(NS,'path'); p.setAttribute('d','M0,0 C3,-3 7,-2 8,1 C5,4 2,3 0,0Z'); p.setAttribute('fill',cols[i%4]); const g=document.createElementNS(NS,'g'); g.setAttribute('transform',`translate(${10+i*22},${110+(i%3)*12})`); p.setAttribute('class','leaf'); p.style.animationDuration=(8+i*1.4)+'s'; p.style.animationDelay=(-i*1.9)+'s'; g.appendChild(p); lv.appendChild(g); }
+  }
+
+  // ---- Bertie's wardrobe ----
+  const PIECES = ['o-shades','o-hat','o-sweater','o-sleeves','o-scarf','o-raincoat','o-rsleeves','o-hoodback','o-hoodrim','o-boots','o-umbrella','o-nightcap','o-bandana'];
+  const SWEATER = ['o-sweater','o-sleeves'], RAIN = ['o-raincoat','o-rsleeves','o-hoodback','o-hoodrim'];
+  const sunnyToo = !isNight && !wet && !cloudy;
+  const WARDROBE = {
+    sunny:  [[],['o-shades'],['o-shades','o-bandana']],
+    hot:    [[],['o-shades'],['o-shades','o-hat']],
+    cloudy: [[],['o-bandana'],[...SWEATER]],
+    cold:   [[],[...SWEATER,'o-scarf'], sunnyToo ? [...SWEATER,'o-scarf','o-shades'] : [...SWEATER,'o-scarf','o-hat']],
+    rain:   [[],[...RAIN,'o-boots'],[...RAIN,'o-boots','o-umbrella']],
+    night:  [[],[...SWEATER],[...SWEATER,'o-nightcap']]
+  };
+  const LINES = {
+    sunny:  ['Hello, Mama Lou!','Looking sharp!','Ready for a stroll!'],
+    hot:    ['Phew, it\'s warm!','Cool as a cucumber.','Shade, please!'],
+    cloudy: ['A gray sort of day.','Dapper, aren\'t I?','Toasty and smart!'],
+    cold:   ['Brrr! It\'s nippy!','Much cozier, thank you!','Warm and bright!'],
+    rain:   ['Oh dear, it\'s pouring!','Puddle-proof!','Perfectly dry!'],
+    night:  ['Good evening!','Snug as a bug.','Nighty-night!']
+  };
+  const HINTS = {sunny:'Tap Bertie for his sunglasses', hot:'Tap Bertie to keep him cool', cloudy:'Tap Bertie to dress him up', cold:'Tap Bertie to bundle him up', rain:'Tap Bertie for his raincoat', night:'Tap Bertie to get him ready for bed'};
+  $('hint').textContent = HINTS[mood];
+  const outfits = WARDROBE[mood]; let idx = 0;
+  function wear(list){ PIECES.forEach(p => show(p, list.includes(p))); }
+  let bubbleT, catT;
+  function measure(t){ try { return t.getComputedTextLength(); } catch(e){ return t.textContent.length*6.6; } }
+  function say(text){
+    const t = $('bubbleText'); t.textContent = text;
+    const w = Math.max(70, measure(t) + 26), h = 28, y = -196;
+    let x = 40; if (x + w > 194) x = 194 - w;
+    const tx = Math.max(x + 4, 22);
+    $('bubblePath').setAttribute('d', `M${x+10},${y} h${w-20} a10,10 0 0 1 10,10 v${h-20} a10,10 0 0 1 -10,10 H${tx+10} l-12,10 l2,-10 H${x+10} a10,10 0 0 1 -10,-10 v${-(h-20)} a10,10 0 0 1 10,-10Z`);
+    t.setAttribute('x', x + w/2); t.setAttribute('y', y + 18.5);
+    $('catBubble').setAttribute('opacity','0');
+    $('bubble').setAttribute('opacity','1'); clearTimeout(bubbleT); bubbleT = setTimeout(()=>$('bubble').setAttribute('opacity','0'), 2800);
+  }
+  function catSay(text){
+    const t = $('catBubbleText'); t.textContent = text;
+    const w = Math.max(40, measure(t) + 14), h = 17, y = -70, x = Math.min(-w/2 - 6, 54 - w);
+    $('catBubblePath').setAttribute('d', `M${x+6},${y} h${w-12} a6,6 0 0 1 6,6 v${h-12} a6,6 0 0 1 -6,6 l-6,7 l-2,-7 H${x+6} a6,6 0 0 1 -6,-6 v${-(h-12)} a6,6 0 0 1 6,-6Z`);
+    t.setAttribute('x', x + w/2); t.setAttribute('y', y + 11.6);
+    $('bubble').setAttribute('opacity','0');
+    $('catBubble').setAttribute('opacity','1'); clearTimeout(catT); catT = setTimeout(()=>$('catBubble').setAttribute('opacity','0'), 2600);
+  }
+  function hearts(x0, y0, n){
+    const h = $('hearts');
+    for (let i=0;i<(n||3);i++){ const g=document.createElementNS(NS,'g'); g.setAttribute('transform',`translate(${x0+i*20},${y0-(i%2)*6})`); const p=document.createElementNS(NS,'path'); p.setAttribute('d','M0,3 C-6,-3 -12,2 0,10 C12,2 6,-3 0,3Z'); p.setAttribute('fill','#d9667a'); p.setAttribute('class','heart'); p.style.animationDelay=(i*.15)+'s'; p.style.transformBox='fill-box'; g.appendChild(p); h.appendChild(g); setTimeout(()=>g.remove(),1800); }
+  }
+  const scene = $('scene'), walk = $('walk'), side = $('side'), front = $('front'), sideBody = $('sideBody');
+  const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let arrived = false, timers = [];
+  const later = (fn, ms) => timers.push(setTimeout(fn, ms));
+  function settle(){
+    side.style.display = 'none'; side.style.opacity = '1';
+    front.style.opacity = '1';
+    front.classList.add('plop'); later(()=>front.classList.remove('plop'), 500);
+    arrived = true;
+    later(()=>{ scene.classList.add('tilt'); say(LINES[mood][0]); later(()=>scene.classList.remove('tilt'),1200); }, 300);
+  }
+  function sit(){
+    // lower his back end, then turn to face Mama Lou
+    const t0 = performance.now();
+    function step(t){
+      const k = Math.min(1, (t - t0)/420), e = 1 - Math.pow(1-k, 3);
+      sideBody.setAttribute('transform', `rotate(${-15*e} 30 0)`);
+      if (k < 1) requestAnimationFrame(step);
+      else {
+        front.style.transition = 'none'; front.style.opacity = '0'; front.style.display = '';
+        side.style.transition = 'opacity .35s'; front.getBoundingClientRect();
+        front.style.transition = 'opacity .35s'; front.style.opacity = '1'; side.style.opacity = '0';
+        later(settle, 360);
+      }
+    }
+    requestAnimationFrame(step);
+  }
+  function arrive(){
+    timers.forEach(clearTimeout); timers = [];
+    arrived = false; idx = 0; wear(outfits[0]);
+    $('bubble').setAttribute('opacity','0');
+    front.style.display = 'none'; side.style.display = ''; side.style.opacity = '1'; side.style.transition = 'none';
+    sideBody.setAttribute('transform','');
+    if (reduce){ walk.style.transition='none'; walk.style.transform='translateX(200px)'; side.style.display='none'; front.style.display=''; settle(); return; }
+    walk.style.transition = 'none'; walk.style.transform = 'translateX(-120px)';
+    walk.getBoundingClientRect();
+    scene.classList.add('trot');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      walk.style.transition = 'transform 4.2s cubic-bezier(.22,.15,.4,1)';
+      walk.style.transform = 'translateX(200px)';
+    }));
+    later(()=>{ scene.classList.remove('trot'); sit(); }, 4150);
+  }
+  arrive();
+  $('replay').addEventListener('click', arrive);
+
+  front.addEventListener('click', ()=>{
+    if (!arrived) return;
+    idx = (idx + 1) % outfits.length; wear(outfits[idx]);
+    say(LINES[mood][idx] || LINES[mood][0]);
+    show('tongue', true); scene.classList.add('happy','tilt'); hearts(176, 118);
+    $('hint').style.opacity = '0';
+    later(()=>{ show('tongue', false); scene.classList.remove('happy','tilt'); }, 1300);
+  });
+  $('sun').addEventListener('click', ()=>{ if (arrived) say(cold ? 'Sunny, but chilly!' : 'What a lovely day!'); });
+
+  // ---- the cat ----
+  const CAT_PIECES = ['c-sweater','c-scarf','c-raincoat','c-rainhat','c-shades','c-nightcap'];
+  const CAT_WARDROBE = {
+    sunny:[[],['c-shades']], hot:[[],['c-shades']], cloudy:[[],['c-scarf'],['c-sweater','c-scarf']],
+    cold:[[],['c-sweater'],['c-sweater','c-scarf']], rain:[[],['c-raincoat','c-rainhat']], night:[[],['c-sweater'],['c-sweater','c-nightcap']]
+  };
+  const CAT_LINES = {
+    sunny:['Mrrow?','Très chic.'], hot:['Too hot to fuss.','Much better.'], cloudy:['Hmm?','Fine. Thank you.','Purrfect.'],
+    cold:['Brr. Mrrow.','Purr. Cozy.','Purr. Very cozy.'], rain:['Wet? Not for me.','Purr. Dry at last.'], night:['Mrrow…','Purr.','Goodnight.']
+  };
+  const catOutfits = CAT_WARDROBE[mood]; let catIdx = 0;
+  $('cat').addEventListener('click', ()=>{
+    catIdx = (catIdx + 1) % catOutfits.length;
+    CAT_PIECES.forEach(p => show(p, catOutfits[catIdx].includes(p)));
+    catSay(CAT_LINES[mood][catIdx] || CAT_LINES[mood][0]);
+    hearts(306, 140, 2);
+  });
+
+  // ---- Austin Today ----
+  $('news').innerHTML = (D.austinToday||[]).map(n => `<li>${esc(n.text)} ${n.url ? `<a href="${esc(safeUrl(n.url))}" target="_blank" rel="noopener">${esc(n.label||'Read more')} ›</a>` : ''}</li>`).join('');
+
+  // ---- Sections ----
+  const ICONS = {
+    lamp:'<circle cx="24" cy="24" r="22" fill="#e2ece4"/><path d="M24,8 v32 M20,40 h8 M21,12 l3,-4 l3,4" stroke="#4f7560" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M22,16 l4,6 M26,16 l-4,6 M22,22 l4,6 M26,22 l-4,6 M22,28 l4,6 M26,28 l-4,6" stroke="#4f7560" stroke-width="1"/><circle cx="24" cy="9" r="3" fill="#d9a43a"/>',
+    mask:'<circle cx="24" cy="24" r="22" fill="#e3ecf5"/><path d="M12,14 C18,12 26,12 32,14 C33,24 28,32 22,32 C16,32 11,24 12,14Z" fill="#fff" stroke="#2c4a6e" stroke-width="2"/><circle cx="18" cy="20" r="1.8" fill="#2c4a6e"/><circle cx="26" cy="20" r="1.8" fill="#2c4a6e"/><path d="M17,26 Q22,30 27,26" stroke="#2c4a6e" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M30,20 C34,19 38,20 40,22 C40,30 36,36 31,36" stroke="#b8892e" stroke-width="2" fill="none"/>',
+    column:'<circle cx="24" cy="24" r="22" fill="#f6eedb"/><path d="M12,18 L24,10 L36,18Z M14,20 h20 M16,22 v12 M21,22 v12 M27,22 v12 M32,22 v12 M12,36 h24" stroke="#8a6620" stroke-width="2.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>',
+    tower:'<circle cx="24" cy="24" r="22" fill="#fbe7d6"/><path d="M19,38 V18 h10 v20 M17,38 h14 M21,18 v-4 h6 v4 M24,14 v-4" stroke="#bf5700" stroke-width="2.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/><circle cx="24" cy="22" r="2" fill="none" stroke="#bf5700" stroke-width="1.4"/>',
+    screen:'<circle cx="24" cy="24" r="22" fill="#e3ecf5"/><rect x="11" y="13" width="26" height="18" rx="3" fill="#fff" stroke="#2c4a6e" stroke-width="2"/><path d="M21,18 l7,4 l-7,4Z" fill="#b8892e"/><path d="M18,37 h12 M24,31 v6" stroke="#2c4a6e" stroke-width="2" stroke-linecap="round"/>',
+    book:'<circle cx="24" cy="24" r="22" fill="#e2ece4"/><path d="M10,16 C15,14 20,14 24,17 C28,14 33,14 38,16 V34 C33,32 28,32 24,35 C20,32 15,32 10,34Z" fill="#fff" stroke="#4f7560" stroke-width="2" stroke-linejoin="round"/><path d="M24,17 V35" stroke="#4f7560" stroke-width="1.6"/>'
+  };
+  const chipCls = c => /free/i.test(c) ? 'chip free' : /home|online/i.test(c) ? 'chip home' : 'chip';
+  const LIBBY = 'https://library.austintexas.gov/digital/overdrive-libby';
+  function itemHTML(it, isToday){
+    const when = isToday && it.todayWhen ? it.todayWhen : it.when;
+    return `<article class="item">
+      <h3>${esc(it.title)}</h3>
+      ${when ? `<div class="when">${esc(when)}</div>` : ''}
+      ${it.place ? `<div class="place">${esc(it.place)}</div>` : ''}
+      ${it.blurb ? `<p>${esc(it.blurb)}</p>` : ''}
+      ${it.phone ? `<div class="phone">Call ${esc(it.phone)}</div>` : ''}
+      ${(it.chips||[]).length ? `<div class="chips">${it.chips.map(c=>`<span class="${chipCls(c)}">${esc(c)}</span>`).join('')}</div>` : ''}
+      <div class="btns">
+        ${it.url ? `<a class="go" href="${esc(safeUrl(it.url))}" target="_blank" rel="noopener">${esc(it.linkLabel||'More information')} ›</a>` : ''}
+        ${it.libby ? `<a class="go alt" href="${LIBBY}" target="_blank" rel="noopener">Borrow on Libby ›</a>` : ''}
+      </div>
+    </article>`;
+  }
+  const secs = D.sections || [];
+  $('sections').innerHTML = secs.map(s => {
+    const live = (s.items||[]).filter(it => !it.end || it.end >= todayISO);
+    const today = live.filter(it => !it.evergreen && (!it.start || it.start <= todayISO));
+    const soon = live.filter(it => !it.evergreen && it.start && it.start > todayISO).sort((a,b)=>a.start.localeCompare(b.start));
+    const always = live.filter(it => it.evergreen && (!it.start || it.start <= todayISO));
+    const evergreenLabel = s.id === 'books' ? 'Worth reading' : 'Anytime';
+    return `<section class="card" id="${esc(s.id)}">
+      <div class="card-h"><svg viewBox="0 0 48 48" aria-hidden="true">${ICONS[s.icon]||ICONS.lamp}</svg><div><h2>${esc(s.title)}</h2>${s.subtitle?`<p>${esc(s.subtitle)}</p>`:''}</div></div>
+      ${(today.length || !always.length) ? `<div class="group"><div class="group-label today">Today</div>${today.length ? today.map(i=>itemHTML(i,true)).join('') : `<p class="empty">Nothing special today. Here's what's coming up.</p>`}</div>` : ''}
+      ${soon.length ? `<div class="group"><div class="group-label">Coming up</div>${soon.map(i=>itemHTML(i,false)).join('')}</div>` : ''}
+      ${always.length ? `<div class="group"><div class="group-label">${evergreenLabel}</div>${always.map(i=>itemHTML(i,false)).join('')}</div>` : ''}
+    </section>`;
+  }).join('');
+
+  const toc = [['today-in-austin','Austin Today'], ...secs.map(s=>[s.id,s.title]), ['family','Impress the Family']];
+  $('contents').innerHTML = toc.map(([id,t])=>`<a href="#${esc(id)}">${esc(t)}</a>`).join('');
+  $('contents').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); const el = document.getElementById(a.getAttribute('href').slice(1)); el && el.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'}); });
+
+  // ---- Longhorns ----
+  const L = D.longhorns;
+  if (L){
+    const last = L.last;
+    $('horns').innerHTML = `
+      ${last ? `<div class="score"><div><div class="t">${esc(last.us)}</div><div class="n">${esc(last.usScore)}</div></div><div class="vs">${esc(last.date)}<br>final</div><div><div class="t">${esc(last.them)}</div><div class="n" style="color:var(--muted)">${esc(last.themScore)}</div></div></div>` : ''}
+      <div class="say" style="margin-top:12px"><b>Next game</b>${esc(L.next)}</div>
+      <ul class="news" style="margin-top:12px">${(L.lines||[]).map(l=>`<li>${esc(l)}</li>`).join('')}</ul>
+      ${L.url ? `<div class="btns"><a class="go tx" href="${esc(safeUrl(L.url))}" target="_blank" rel="noopener">Longhorn news ›</a></div>` : ''}`;
+  }
+
+  const upd = new Date(D.updated + 'T12:00:00');
+  $('updated').textContent = fresh ? 'Fresh this morning. New listings arrive every day.' : `Last updated ${upd.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}`;
+})();
+</script>
+
+</body>
+</html>
