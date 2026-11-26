@@ -65,44 +65,87 @@ def call(messages):
     except urllib.error.HTTPError as e:
         sys.exit(f"Claude API error {e.code}: {e.read().decode()[:800]}")
 
-messages = [{"role": "user", "content": PROMPT}]
-for _ in range(6):  # web search can pause a long turn; continue it
-    resp = call(messages)
-    if resp.get("stop_reason") == "pause_turn":
-        messages = [messages[0], {"role": "assistant", "content": resp["content"]}]
-        continue
-    break
+def ask(messages):
+    """Run one request, continuing if web search pauses or the reply is cut off."""
+    out_text = ""
+    for _ in range(8):
+        resp = call(messages)
+        out_text += "".join(b.get("text", "") for b in resp.get("content", []) if b.get("type") == "text")
+        stop = resp.get("stop_reason")
+        print(f"Claude stop_reason: {stop}")
+        if stop in ("pause_turn", "max_tokens"):
+            messages = messages + [{"role": "assistant", "content": resp["content"]}]
+            if stop == "max_tokens":
+                messages.append({"role": "user", "content": "Continue exactly where you stopped. Output only the rest of the JSON."})
+            continue
+        break
+    return out_text
 
-text = "".join(b.get("text", "") for b in resp.get("content", []) if b.get("type") == "text")
-m = re.search(r"(\{.*\})", text, re.S)
-if not m:
-    sys.exit("No JSON in Claude's reply. Keeping yesterday's file.\n" + text[:1500])
+def extract(text):
+    a, b = text.find("{"), text.rfind("}")
+    if a < 0 or b <= a:
+        raise ValueError("no JSON object found")
+    return json.loads(text[a:b+1])
+
+old = json.loads(current)
+text = ask([{"role": "user", "content": PROMPT}])
 try:
-    data = json.loads(m.group(1))
-except json.JSONDecodeError as e:
-    sys.exit(f"Reply wasn't valid JSON ({e}). Keeping yesterday's file.")
+    data = extract(text)
+except Exception as e:
+    print(f"First reply wasn't usable JSON ({e}). Asking Claude to fix it.")
+    print("Reply started with:", text[:600].replace("\n", " "))
+    text = ask([{"role": "user", "content": "Turn the following into ONE valid JSON object in exactly the shape described. Output only the JSON, starting with { and ending with }.\n\n" + text[-60000:]}])
+    try:
+        data = extract(text)
+    except Exception as e2:
+        sys.exit(f"Still no valid JSON ({e2}). Keeping yesterday's file. Reply started with: {text[:800]}")
 
-# --- sanity checks: keep yesterday's file unless today's looks right ---
-problems = []
-w = data.get("weather", {})
-if w.get("condition") not in ("sunny", "cloudy", "rain", "storm"): problems.append("weather.condition")
-for k in ("high", "low"):
-    if not isinstance(w.get(k), (int, float)): problems.append(f"weather.{k}")
-secs = data.get("sections", [])
-if [s.get("id") for s in secs] != SECTION_IDS: problems.append("section ids/order")
-def bad_url(u): return not (isinstance(u, str) and u.startswith("https://"))
-for s in secs:
-    for it in s.get("items", []):
-        if bad_url(it.get("url")): problems.append(f"url in {s.get('id')}: {it.get('title')}")
-        for k in ("start", "end"):
-            if it.get(k) and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(it[k])): problems.append(f"{k} in {it.get('title')}")
-for n in data.get("austinToday", []):
-    if bad_url(n.get("url")): problems.append("austinToday url")
-if sum(len(s.get("items", [])) for s in secs) < 8: problems.append("too few items")
-if problems:
-    sys.exit("Today's data failed checks, keeping yesterday's file: " + "; ".join(problems[:12]))
+def good_url(u): return isinstance(u, str) and u.startswith("https://")
+def good_date(d): return d is None or bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(d)))
+
+# --- repair instead of rejecting: drop bad items, fall back to yesterday per part ---
+notes = []
+w = data.get("weather") if isinstance(data.get("weather"), dict) else {}
+if w.get("condition") not in ("sunny", "cloudy", "rain", "storm") or not all(isinstance(w.get(k), (int, float)) for k in ("high", "low")):
+    notes.append("weather looked wrong, kept yesterday's"); w = old.get("weather", {})
+data["weather"] = w
+
+news = [n for n in (data.get("austinToday") or []) if isinstance(n, dict) and n.get("text") and good_url(n.get("url"))]
+if not news: notes.append("no usable news, kept yesterday's"); news = old.get("austinToday", [])
+data["austinToday"] = news
+
+by_id_new = {s.get("id"): s for s in (data.get("sections") or []) if isinstance(s, dict)}
+by_id_old = {s.get("id"): s for s in old.get("sections", [])}
+fixed = []
+for sid in SECTION_IDS:
+    sec = by_id_new.get(sid) or by_id_old.get(sid)
+    if not sec: continue
+    base = by_id_old.get(sid, {})
+    for k in ("title", "subtitle", "icon"):
+        sec[k] = sec.get(k) or base.get(k)
+    items = []
+    for it in sec.get("items") or []:
+        if not isinstance(it, dict) or not it.get("title"): continue
+        if not good_url(it.get("url")) or not good_date(it.get("start")) or not good_date(it.get("end")):
+            notes.append(f"dropped '{it.get('title')}' (bad link or date)"); continue
+        if it.get("end") and it["end"] < today: continue
+        items.append(it)
+    if not items and base.get("items"):
+        notes.append(f"{sid}: nothing usable, kept yesterday's"); items = [i for i in base["items"] if not i.get("end") or i["end"] >= today]
+    sec["id"] = sid; sec["items"] = items
+    fixed.append(sec)
+data["sections"] = fixed
+
+lh = data.get("longhorns")
+if not (isinstance(lh, dict) and lh.get("next")): data["longhorns"] = old.get("longhorns")
+elif lh.get("url") and not good_url(lh["url"]): lh.pop("url")
+
+total = sum(len(s["items"]) for s in fixed)
+if total < 6:
+    sys.exit(f"Only {total} usable items. Keeping yesterday's file. Notes: {notes}")
 
 data["updated"] = today
 with open(DATA, "w", encoding="utf-8") as f:
     json.dump(data, f, indent=1, ensure_ascii=False)
-print(f"daily.json updated for {today}: {sum(len(s['items']) for s in secs)} items.")
+for n in notes: print("note:", n)
+print(f"daily.json updated for {today}: {total} items.")
