@@ -1,34 +1,39 @@
 {
- "updated": "2026-11-25",
+ "updated": "2026-11-26",
  "weather": {
   "condition": "sunny",
   "summary": "Sunny and chilly",
-  "high": 56,
-  "low": 38,
-  "sunrise": "7:01",
-  "sunset": "17:31",
-  "url": "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
+  "high": 58,
+  "low": 34,
+  "sunrise": "7:05",
+  "sunset": "17:30",
+  "url": "https://forecast.weather.gov/MapClick.php?lat=30.26759000000004&lon=-97.74298999999996"
  },
  "austinToday": [
   {
-   "text": "Thanksgiving is tomorrow. Two cold fronts have swept through, so it will be a sweater-weather holiday.",
-   "url": "https://www.fox7austin.com/weather/austin-weather-back-to-back-cold-fronts-will-drop-temperatures-30s-ahead-thanksgiving",
-   "label": "FOX 7"
+   "text": "It's a chilly Thanksgiving, with highs only in the upper 50s under sunny skies. Warmer weather returns Friday, and the weekend looks even better, with highs back in the 70s.",
+   "url": "https://www.statesman.com/weather/article/austin-weather-forecast-thanksgiving-temperatures-22549531.php",
+   "label": "Austin American-Statesman"
   },
   {
-   "text": "The Zilker Holiday Tree turns 60 this year. It lights up Sunday evening, and you can see it every night through New Year's Day.",
-   "url": "https://www.austintexas.gov/parks/programs/zilker-holiday-tree",
+   "text": "The 60th Zilker Holiday Tree lighting is this Sunday at 6 pm. Young artists who won a drawing contest will help flip the switch.",
+   "url": "https://www.austintexas.gov/parks/news/60th-annual-zilker-holiday-tree-lighting-ceremony",
    "label": "City of Austin"
   },
   {
-   "text": "The Longhorns beat Arkansas 45 to 3 on Saturday. They play Texas A&M on Friday night.",
-   "url": "https://texaslonghorns.com/news/2026/11/21/no-8-8-5-football-routs-arkansas-45-3",
-   "label": "Texas Athletics"
+   "text": "Luminations, the Wildflower Center's holiday light show, opened Nov. 20 with new glowing woodland creatures. It runs on select evenings through New Year's Eve.",
+   "url": "https://www.wildflower.org/pressroom/wildflower-center-luminations-2026",
+   "label": "Lady Bird Johnson Wildflower Center"
   },
   {
-   "text": "The Bullock Museum has a new exhibit about the 1990s. It's sure to bring back memories of the grandchildren's childhoods.",
-   "url": "https://www.thestoryoftexas.com/special-exhibits/the-90s/",
-   "label": "Bullock Museum"
+   "text": "The Bullock Museum's new 1990s exhibit includes a piece of the Berlin Wall and famous movie costumes. It's sure to bring back memories of the grandchildren's childhoods.",
+   "url": "https://austin.culturemap.com/news/entertainment/weekend-events-11-12-2026/",
+   "label": "CultureMap Austin"
+  },
+  {
+   "text": "Austin's airport had its busiest month ever in October, with more than 2.1 million passengers.",
+   "url": "https://cbsaustin.com/newsletter-daily/october-was-austin-airports-busiest-month-ever",
+   "label": "CBS Austin"
   }
  ],
  "sections": [
@@ -48,7 +53,7 @@
      "chips": [
       "Free",
       "Outdoors",
-      "Busy on lighting night"
+      "Free parking"
      ],
      "url": "https://www.austintexas.gov/parks/programs/zilker-holiday-tree",
      "linkLabel": "More information"
@@ -59,7 +64,7 @@
      "end": "2027-01-01",
      "when": "Every evening, 6 to 10 pm, through Jan 1",
      "place": "Zilker Park",
-     "blurb": "Weeknights are calm, and parking on the paved lots is free. It's lovely even from the car window.",
+     "blurb": "Quiet nights with free parking are the easiest, and it's lovely even from the car window. Come before the Trail of Lights crowds begin Dec 10.",
      "chips": [
       "Free",
       "Free parking"
@@ -73,12 +78,12 @@
      "end": "2026-11-28",
      "when": "Saturday, Nov 28 · 3 to 7 pm",
      "place": "The People's Plaza at ZACH, 202 S Lamar",
-     "blurb": "An open-air market of local makers on Small Business Saturday. Also Dec 12 and Dec 19.",
+     "blurb": "An open-air market of local makers on Small Business Saturday, right between the matinee and evening shows.",
      "chips": [
       "Free",
       "Outdoors"
      ],
-     "url": "https://www.broadwayworld.com/article/THE-HOLIDAY-MARKET-AT-ZACH-to-Return-for-2026-20260922",
+     "url": "https://www.zachtheater.org/plan-your-visit/the-market-at-zach/",
      "linkLabel": "Details"
     },
     {
@@ -87,12 +92,26 @@
      "end": "2026-12-12",
      "when": "Saturday, Dec 12 · 3 to 7 pm",
      "place": "The People's Plaza at ZACH, 202 S Lamar",
-     "blurb": "Local makers, holiday drinks and gifts, right outside the theater.",
+     "blurb": "Local makers, tasty treats and gifts, right outside the theater.",
      "chips": [
       "Free",
       "Outdoors"
      ],
-     "url": "https://www.broadwayworld.com/article/THE-HOLIDAY-MARKET-AT-ZACH-to-Return-for-2026-20260922",
+     "url": "https://www.zachtheater.org/plan-your-visit/the-market-at-zach/",
+     "linkLabel": "Details"
+    },
+    {
+     "title": "The Holiday Market at ZACH",
+     "start": "2026-12-19",
+     "end": "2026-12-19",
+     "when": "Saturday, Dec 19 · 3 to 7 pm",
+     "place": "The People's Plaza at ZACH, 202 S Lamar",
+     "blurb": "The last market of the season, a nice pairing with an afternoon show.",
+     "chips": [
+      "Free",
+      "Outdoors"
+     ],
+     "url": "https://www.zachtheater.org/plan-your-visit/the-market-at-zach/",
      "linkLabel": "Details"
     }
    ]
@@ -105,12 +124,11 @@
    "items": [
     {
      "title": "A Christmas Carol",
-     "start": "2026-11-25",
+     "start": "2026-11-18",
      "end": "2026-12-27",
-     "todayWhen": "Today at 1 pm and 6 pm",
-     "when": "Through Dec 27 · matinees and evenings",
-     "place": "ZACH Theatre, 202 S Lamar Blvd",
-     "blurb": "ZACH's beloved holiday tradition. Afternoon shows are an easy outing.",
+     "when": "Through Dec 27 · Fri Nov 27 at 2 and 7 pm; Sat Nov 28 at 2 and 7 pm; Sun Nov 29 at 2 pm",
+     "place": "The Topfer at ZACH Theatre, 202 S Lamar Blvd",
+     "blurb": "ZACH's lively musical take on the Dickens classic, with pop music and plenty of joy. Afternoon shows are an easy outing.",
      "chips": [
       "Seated",
       "Indoors"
@@ -119,12 +137,26 @@
      "linkLabel": "Tickets & times"
     },
     {
+     "title": "A Charlie Brown Christmas",
+     "start": "2026-11-06",
+     "end": "2026-12-27",
+     "when": "Through Dec 27 · Fri Nov 27 at 2 and 7 pm; Sat and Sun Nov 28–29 at 11 am and 2 pm",
+     "place": "The Kleberg at ZACH Theatre, 1421 W Riverside Dr",
+     "blurb": "The Peanuts gang's holiday favorite, live on stage. A gentle show for the whole family.",
+     "chips": [
+      "Seated",
+      "Indoors"
+     ],
+     "url": "https://www.zachtheater.org/tickets/shows/",
+     "linkLabel": "Tickets & times"
+    },
+    {
      "title": "The Nutcracker",
      "start": "2026-12-04",
      "end": "2026-12-23",
      "when": "Dec 4 to 23 · 2 pm matinees most weekends",
      "place": "Ballet Austin at the Long Center, Dell Hall",
-     "blurb": "Ballet Austin's 63rd Nutcracker. About two hours, with a 20-minute intermission.",
+     "blurb": "Ballet Austin's 64th Nutcracker, with the Austin Symphony Orchestra playing the score live.",
      "chips": [
       "Seated",
       "Indoors"
@@ -136,15 +168,30 @@
      "title": "The Met Opera in HD: Samson et Dalila",
      "start": "2026-12-05",
      "end": "2026-12-05",
-     "when": "Saturday, Dec 5",
+     "when": "Saturday, Dec 5 · 11 am Central (about 4 hours)",
      "place": "Shown live at movie theaters",
-     "blurb": "Saint-Saëns's lush opera, broadcast live from New York to a cinema near you.",
+     "blurb": "Saint-Saëns's lush opera, broadcast live from New York to a cinema near you, with an encore showing Dec 9 at AMC.",
      "chips": [
       "Seated",
       "Comfy cinema seats"
      ],
-     "url": "https://www.metopera.org/season/in-cinemas/",
+     "url": "https://www.metopera.org/season/in-cinemas/2026-27-season/samson-et-dalila/",
      "linkLabel": "Find a theater"
+    },
+    {
+     "title": "Kat Edmonson: Have Your Merry Christmas With Me",
+     "start": "2026-12-18",
+     "end": "2026-12-19",
+     "when": "Fri Dec 18 and Sat Dec 19 · 8 pm (doors 7 pm)",
+     "place": "The State Theatre, Paramount Theatre, downtown",
+     "blurb": "Vocalist Kat Edmonson brings sparkling holiday songs from her new Christmas album.",
+     "chips": [
+      "Seated",
+      "Indoors",
+      "Evening"
+     ],
+     "url": "https://tickets.austintheatre.org/14189",
+     "linkLabel": "Tickets"
     }
    ]
   },
@@ -171,8 +218,8 @@
     {
      "title": "The Worlds of Gertrude Stein",
      "start": "2026-08-15",
-     "end": "2027-01-24",
-     "when": "On view through Jan 24",
+     "end": "2027-01-10",
+     "when": "On view through Jan 10 · Tue–Fri 10–5, Sat–Sun noon–5",
      "place": "Harry Ransom Center, 300 W 21st St",
      "blurb": "Paris salons, Picasso, and the writer who knew everyone.",
      "chips": [
@@ -186,14 +233,42 @@
      "title": "The 90s: Last Decade Before the Future",
      "start": "2026-11-14",
      "end": "2027-03-21",
-     "when": "On view through Mar 21 · daily 10–5",
+     "when": "On view through Mar 21",
      "place": "Bullock Texas State History Museum, 1800 N Congress",
-     "blurb": "A playful look back at the 1990s. Fun to visit with a grandchild.",
+     "blurb": "A playful look back at the 1990s, with a piece of the Berlin Wall and movie costumes. Fun to visit with a grandchild.",
      "chips": [
       "Indoors",
-      "Tickets"
+      "Tickets",
+      "Seniors $18"
      ],
      "url": "https://www.thestoryoftexas.com/special-exhibits/the-90s/",
+     "linkLabel": "More information"
+    },
+    {
+     "title": "Haas Brothers: Uncanny Valley",
+     "start": "2026-09-27",
+     "end": "2027-01-17",
+     "when": "On view through Jan 17",
+     "place": "Blanton Museum of Art, UT campus",
+     "blurb": "Fantastical figures by twin artists who grew up in Austin, in their first major museum show here.",
+     "chips": [
+      "Indoors"
+     ],
+     "url": "https://blantonmuseum.org/2026/07/07/haas-brothers-press-release/",
+     "linkLabel": "More information"
+    },
+    {
+     "title": "Austin Past & Present: Through the Lens of Jay Godwin",
+     "start": "2026-03-07",
+     "end": "2027-01-03",
+     "when": "On view through Jan 3 · closed today, reopens Friday at 9 am",
+     "place": "LBJ Presidential Library, 2313 Red River St",
+     "blurb": "A look at Austin's changing face through the photographs of Jay Godwin.",
+     "chips": [
+      "Indoors",
+      "Photographs"
+     ],
+     "url": "https://www.lbjlibrary.org/exhibitions",
      "linkLabel": "More information"
     }
    ]
@@ -204,32 +279,6 @@
    "icon": "tower",
    "subtitle": "Open to the public on the Forty Acres",
    "items": [
-    {
-     "title": "Hullabaloo Hooray: The History of Texas Spirit",
-     "start": "2026-11-25",
-     "end": "2026-11-25",
-     "when": "Today, 9 am to 5 pm",
-     "place": "Stark Center, north end zone of the stadium",
-     "blurb": "A small exhibit on Longhorn traditions, just in time for the A&M game.",
-     "chips": [
-      "Indoors"
-     ],
-     "url": "https://calendar.utexas.edu/event/hullabaloo-hooray-the-history-of-texas-spirit",
-     "linkLabel": "Details"
-    },
-    {
-     "title": "Revolutions and Constitutions",
-     "start": "2026-11-25",
-     "end": "2026-11-25",
-     "when": "On view today",
-     "place": "Benson Latin American Collection, Sid Richardson Hall",
-     "blurb": "Nation-building in the Americas after 1776, from the Benson's rare collections.",
-     "chips": [
-      "Indoors"
-     ],
-     "url": "https://calendar.utexas.edu/event/revolutions-and-constitutions-nation-building-in-the-americas-after-1776",
-     "linkLabel": "Details"
-    },
     {
      "title": "Faculty Book Talk: Inside the Body of Black Feminism",
      "start": "2026-12-02",
@@ -245,8 +294,53 @@
      "linkLabel": "Details"
     },
     {
+     "title": "Musical Memories: The Butler School of Music Opera",
+     "start": "2026-12-04",
+     "end": "2026-12-04",
+     "when": "Friday, Dec 4 · noon to 1 pm",
+     "place": "5th Floor Atrium, Norman Hackerman Building",
+     "blurb": "A free midday arts break with opera music from UT's Butler School of Music.",
+     "chips": [
+      "Free",
+      "Indoors",
+      "Concert"
+     ],
+     "url": "https://music.utexas.edu/events/2026-27-season-highlights",
+     "linkLabel": "Details"
+    },
+    {
+     "title": "Butler Holiday Concert",
+     "start": "2026-12-05",
+     "end": "2026-12-05",
+     "when": "Saturday, Dec 5 · 7:30 pm (doors 6:30)",
+     "place": "Bates Recital Hall, Butler School of Music",
+     "blurb": "Carols and winter favorites from UT's orchestra, choirs and jazz combos. The Sunday show is sold out, so book the Saturday one.",
+     "chips": [
+      "Concert",
+      "Seated",
+      "Senior ticket $22"
+     ],
+     "url": "https://butlerschoolofmusic.thundertix.com/events/267298",
+     "linkLabel": "Tickets"
+    },
+    {
+     "title": "Holiday in Blue with the U.S. Air Force Band of the West",
+     "start": "2026-12-11",
+     "end": "2026-12-11",
+     "when": "Friday, Dec 11 · 7:30 pm",
+     "place": "Bates Recital Hall, Butler School of Music",
+     "blurb": "The Air Force band's annual holiday concert, free with a ticket reservation.",
+     "chips": [
+      "Free",
+      "Concert",
+      "Seated"
+     ],
+     "url": "https://www.eventbrite.com/e/holiday-in-blue-at-the-university-of-texas-at-austin-bates-recital-hall-tickets-2003021906442",
+     "linkLabel": "Reserve a seat"
+    },
+    {
      "title": "Browse every UT event",
-     "start": "2026-11-25",
+     "start": "2026-11-26",
      "end": "2027-12-31",
      "evergreen": true,
      "when": "Lectures from every college and graduate school",
@@ -281,6 +375,20 @@
      "linkLabel": "How to join"
     },
     {
+     "title": "In the Company of Pandas",
+     "start": "2026-12-02",
+     "end": "2026-12-02",
+     "when": "Wednesday, Dec 2 · 11 am to 12:15 pm Central",
+     "place": "Online, from Smithsonian Associates",
+     "blurb": "A live online lecture all about pandas, a gentle treat for an armchair afternoon.",
+     "chips": [
+      "Watch from home",
+      "Live online"
+     ],
+     "url": "https://smithsonianassociates.org/ticketing/online/",
+     "linkLabel": "Details"
+    },
+    {
      "title": "Picasso, Miró, Dalí: Artists' Books",
      "start": "2026-12-09",
      "end": "2026-12-09",
@@ -310,7 +418,7 @@
     },
     {
      "title": "Texas Exes Lunchtime Lectures",
-     "start": "2026-11-25",
+     "start": "2026-11-26",
      "end": "2027-12-31",
      "evergreen": true,
      "when": "Free online talks by UT professors",
@@ -332,55 +440,56 @@
    "items": [
     {
      "title": "Kin, by Tayari Jones",
-     "start": "2026-11-25",
+     "start": "2026-11-26",
      "end": "2027-12-31",
      "evergreen": true,
-     "when": "One of the Times's best books of the year so far",
-     "place": "Historical fiction",
-     "blurb": "A lush historical novel about two sisters. Borrow it free on Libby, and turn up the text size as big as you like.",
+     "when": "One of the Times's 100 Notable Books of 2026",
+     "place": "Novel",
+     "blurb": "A much-praised new novel from Tayari Jones, and an Oprah's Book Club pick. Look for it free on Libby, where you can turn the text size as big as you like.",
      "chips": [
       "Novel",
       "Audiobook on Libby"
      ],
-     "url": "https://www.kirkusreviews.com/news-and-features/articles/nyt-releases-list-of-years-best-books-so-far/",
+     "url": "https://www.yearendlists.com/2026/new-york-times-100-notable-books-of-2026",
      "linkLabel": "Read about it",
      "libby": true
     },
     {
      "title": "The Boundless Deep, by Richard Holmes",
-     "start": "2026-11-25",
+     "start": "2026-11-26",
      "end": "2027-12-31",
      "evergreen": true,
      "when": "One of the Times's best books of the year so far",
      "place": "Nonfiction",
-     "blurb": "From the wonderful biographer of the Romantic poets and scientists.",
+     "blurb": "A dazzling new biography of the young Tennyson, from the author of The Age of Wonder.",
      "chips": [
-      "Nonfiction"
+      "Nonfiction",
+      "Biography"
      ],
-     "url": "https://www.kirkusreviews.com/news-and-features/articles/nyt-releases-list-of-years-best-books-so-far/",
+     "url": "https://brooklinebooksmith.com/list/new-york-times-100-notable-books-2026",
      "linkLabel": "Read about it",
      "libby": true
     },
     {
-     "title": "Read Gertrude Stein, then see her",
-     "start": "2026-11-25",
-     "end": "2027-01-24",
+     "title": "Cool Machine, by Colson Whitehead",
+     "start": "2026-11-26",
+     "end": "2027-12-31",
      "evergreen": true,
-     "when": "Pairs with the Ransom Center show",
-     "place": "The Autobiography of Alice B. Toklas",
-     "blurb": "Stein's witty, gossipy memoir of Paris. Read it, then visit the exhibit before Jan 24.",
+     "when": "One of the Times's 100 Notable Books of 2026",
+     "place": "Novel",
+     "blurb": "An exuberantly entertaining novel of 1980s New York, closing Whitehead's Harlem Trilogy.",
      "chips": [
-      "Classic"
+      "Novel"
      ],
-     "url": "https://www.hrc.utexas.edu/exhibitions/2026/the-worlds-of-gertrude-stein/",
-     "linkLabel": "About the exhibit",
+     "url": "https://www.penguinrandomhouse.com/the-read-down/nytimes-notable-fiction-books/",
+     "linkLabel": "Read about it",
      "libby": true
     }
    ]
   }
  ],
  "longhorns": {
-  "headline": "Texas routed Arkansas on Saturday",
+  "headline": "Texas routed Arkansas, and the Aggies are up Friday night",
   "last": {
    "us": "Texas",
    "usScore": 45,
@@ -390,10 +499,10 @@
   },
   "next": "Friday, Nov 27 at 6:30 pm, at Texas A&M (on ABC)",
   "lines": [
-   "Texas is ranked No. 8 in the country.",
-   "Friday is the Lone Star Showdown against the Aggies in College Station.",
-   "Arch Manning is the quarterback, and yes, he's Peyton and Eli's nephew.",
-   "Back in September, Texas came back from 23 to 3 down to beat No. 1 Ohio State, 24 to 23."
+   "Texas is 9-2 and ranked No. 8 in the polls and No. 5 in the playoff rankings, with five wins in a row.",
+   "Friday is the Lone Star Showdown against the Aggies (4-7) at Kyle Field in College Station. Texas won both meetings since the rivalry resumed, including 27 to 17 last year.",
+   "Arch Manning was 21 of 25 for 287 yards and three touchdowns against Arkansas, and Jelani McDonald returned an interception 31 yards for a score.",
+   "The men's basketball team is 6-0 after beating Southern Indiana 97 to 61 on Sunday."
   ],
   "url": "https://texaslonghorns.com/news/2026/11/21/no-8-8-5-football-routs-arkansas-45-3"
  }
