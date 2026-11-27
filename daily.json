@@ -1,19 +1,19 @@
 {
- "updated": "2026-11-26",
+ "updated": "2026-11-27",
  "weather": {
-  "condition": "sunny",
-  "summary": "Sunny and chilly",
-  "high": 58,
-  "low": 34,
-  "sunrise": "7:05",
+  "condition": "cloudy",
+  "summary": "Cloudy",
+  "high": 69,
+  "low": 37,
+  "sunrise": "7:06",
   "sunset": "17:30",
-  "url": "https://forecast.weather.gov/MapClick.php?lat=30.26759000000004&lon=-97.74298999999996"
+  "url": "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
  },
  "austinToday": [
   {
-   "text": "It's a chilly Thanksgiving, with highs only in the upper 50s under sunny skies. Warmer weather returns Friday, and the weekend looks even better, with highs back in the 70s.",
-   "url": "https://www.statesman.com/weather/article/austin-weather-forecast-thanksgiving-temperatures-22549531.php",
-   "label": "Austin American-Statesman"
+   "text": "Friday should reach the upper 60s. Saturday looks sunny and mild, near 74. A cold front arrives Sunday, with a high near 65 and a chilly night, so keep a sweater handy.",
+   "url": "https://weather.com/weather/weekend/l/Austin+Texas+78748?canonicalCityId=7ce298557b658f9a1c2ac575b0b43cc4",
+   "label": "The Weather Channel"
   },
   {
    "text": "The 60th Zilker Holiday Tree lighting is this Sunday at 6 pm. Young artists who won a drawing contest will help flip the switch.",
@@ -21,19 +21,14 @@
    "label": "City of Austin"
   },
   {
+   "text": "Dolly Parton's Smoky Mountain Christmas Carol is playing at Bass Concert Hall, with a performance listed for tonight, Nov. 27, at 5 pm. It's a musical retelling of the Christmas story set in a 1930s mining town.",
+   "url": "https://www.austinmonthly.com/7-fun-things-to-do-this-thanksgiving-weekend-nov-26-29/",
+   "label": "Austin Monthly"
+  },
+  {
    "text": "Luminations, the Wildflower Center's holiday light show, opened Nov. 20 with new glowing woodland creatures. It runs on select evenings through New Year's Eve.",
    "url": "https://www.wildflower.org/pressroom/wildflower-center-luminations-2026",
    "label": "Lady Bird Johnson Wildflower Center"
-  },
-  {
-   "text": "The Bullock Museum's new 1990s exhibit includes a piece of the Berlin Wall and famous movie costumes. It's sure to bring back memories of the grandchildren's childhoods.",
-   "url": "https://austin.culturemap.com/news/entertainment/weekend-events-11-12-2026/",
-   "label": "CultureMap Austin"
-  },
-  {
-   "text": "Austin's airport had its busiest month ever in October, with more than 2.1 million passengers.",
-   "url": "https://cbsaustin.com/newsletter-daily/october-was-austin-airports-busiest-month-ever",
-   "label": "CBS Austin"
   }
  ],
  "sections": [
@@ -489,7 +484,7 @@
   }
  ],
  "longhorns": {
-  "headline": "Texas routed Arkansas, and the Aggies are up Friday night",
+  "headline": "Texas plays the Aggies tonight, after a big win over Arkansas",
   "last": {
    "us": "Texas",
    "usScore": 45,
@@ -497,13 +492,13 @@
    "themScore": 3,
    "date": "Saturday, Nov 21"
   },
-  "next": "Friday, Nov 27 at 6:30 pm, at Texas A&M (on ABC)",
+  "next": "Friday, Nov 27 (tonight) at 6:30 pm Central, at Texas A&M in College Station, on ABC",
   "lines": [
-   "Texas is 9-2 and ranked No. 8 in the polls and No. 5 in the playoff rankings, with five wins in a row.",
-   "Friday is the Lone Star Showdown against the Aggies (4-7) at Kyle Field in College Station. Texas won both meetings since the rivalry resumed, including 27 to 17 last year.",
-   "Arch Manning was 21 of 25 for 287 yards and three touchdowns against Arkansas, and Jelani McDonald returned an interception 31 yards for a score.",
-   "The men's basketball team is 6-0 after beating Southern Indiana 97 to 61 on Sunday."
+   "Tonight is the Lone Star Showdown at Kyle Field in College Station. It's the final regular-season game for both teams, and the 121st meeting in the rivalry.",
+   "Texas comes in 9-2, while the Aggies are 4-7 and have lost four games in a row.",
+   "Texas has won both meetings since the rivalry started up again: 17 to 7 in 2024, and 27 to 17 in Austin last year.",
+   "Last Saturday, Texas beat Arkansas 45 to 3, with Arch Manning throwing three touchdown passes."
   ],
-  "url": "https://texaslonghorns.com/news/2026/11/21/no-8-8-5-football-routs-arkansas-45-3"
+  "url": "https://sports.yahoo.com/college-football/articles/watch-texas-longhorns-texas-m-113147662.html"
  }
 }
