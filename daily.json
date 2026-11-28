@@ -1,34 +1,34 @@
 {
- "updated": "2026-11-27",
+ "updated": "2026-11-28",
  "weather": {
   "condition": "cloudy",
-  "summary": "Cloudy",
-  "high": 69,
-  "low": 37,
-  "sunrise": "7:06",
+  "summary": "Partly cloudy",
+  "high": 73,
+  "low": 41,
+  "sunrise": "7:07",
   "sunset": "17:30",
   "url": "https://forecast.weather.gov/MapClick.php?lat=30.2672&lon=-97.7431"
  },
  "austinToday": [
   {
-   "text": "Friday should reach the upper 60s. Saturday looks sunny and mild, near 74. A cold front arrives Sunday, with a high near 65 and a chilly night, so keep a sweater handy.",
+   "text": "Today looks sunny and breezy with a high near 74. A dry cold front comes through Sunday, with a high near 65, gusty north winds and a chilly night near 38, so keep a sweater handy.",
    "url": "https://weather.com/weather/weekend/l/Austin+Texas+78748?canonicalCityId=7ce298557b658f9a1c2ac575b0b43cc4",
    "label": "The Weather Channel"
   },
   {
-   "text": "The 60th Zilker Holiday Tree lighting is this Sunday at 6 pm. Young artists who won a drawing contest will help flip the switch.",
-   "url": "https://www.austintexas.gov/parks/news/60th-annual-zilker-holiday-tree-lighting-ceremony",
-   "label": "City of Austin"
+   "text": "The Zilker Holiday Tree lighting is tomorrow, Sunday, Nov. 29, and it's free. Music starts at 5:15 pm and the tree is lit at 6 pm.",
+   "url": "https://austinfunforkids.com/austin-weekend-events-november-27-29-2026/",
+   "label": "Austin Fun for Kids"
   },
   {
-   "text": "Dolly Parton's Smoky Mountain Christmas Carol is playing at Bass Concert Hall, with a performance listed for tonight, Nov. 27, at 5 pm. It's a musical retelling of the Christmas story set in a 1930s mining town.",
-   "url": "https://www.austinmonthly.com/7-fun-things-to-do-this-thanksgiving-weekend-nov-26-29/",
-   "label": "Austin Monthly"
+   "text": "Tonight, Saturday, Nov. 28, Hill Country Galleria in Bee Cave has its Light Up the Plaza holiday event from 5 to 8 pm.",
+   "url": "https://www.austinites101.com/blog/post/christmas-tree-lightings-happening-around-austin/",
+   "label": "Austinites101"
   },
   {
-   "text": "Luminations, the Wildflower Center's holiday light show, opened Nov. 20 with new glowing woodland creatures. It runs on select evenings through New Year's Eve.",
-   "url": "https://www.wildflower.org/pressroom/wildflower-center-luminations-2026",
-   "label": "Lady Bird Johnson Wildflower Center"
+   "text": "The Austin Trail of Lights returns to Zilker Park on Dec. 10–23. It's now in its 62nd year, with more than 2 million lights and 70 holiday displays.",
+   "url": "https://austinot.com/christmas-lights-austin",
+   "label": "AustinOT"
   }
  ],
  "sections": [
@@ -484,21 +484,21 @@
   }
  ],
  "longhorns": {
-  "headline": "Texas plays the Aggies tonight, after a big win over Arkansas",
+  "headline": "Texas beat the Aggies and is headed to the SEC Championship Game",
   "last": {
    "us": "Texas",
-   "usScore": 45,
-   "them": "Arkansas",
-   "themScore": 3,
-   "date": "Saturday, Nov 21"
+   "usScore": 16,
+   "them": "Texas A&M",
+   "themScore": 6,
+   "date": "Friday, Nov 27"
   },
-  "next": "Friday, Nov 27 (tonight) at 6:30 pm Central, at Texas A&M in College Station, on ABC",
+  "next": "Saturday, Dec 5 at 3:00 pm Central, vs. Georgia in the SEC Championship Game at Mercedes-Benz Stadium in Atlanta, on ABC",
   "lines": [
-   "Tonight is the Lone Star Showdown at Kyle Field in College Station. It's the final regular-season game for both teams, and the 121st meeting in the rivalry.",
-   "Texas comes in 9-2, while the Aggies are 4-7 and have lost four games in a row.",
-   "Texas has won both meetings since the rivalry started up again: 17 to 7 in 2024, and 27 to 17 in Austin last year.",
-   "Last Saturday, Texas beat Arkansas 45 to 3, with Arch Manning throwing three touchdown passes."
+   "Texas won the Lone Star Showdown at Kyle Field in College Station, 16 to 6, and finished the regular season at 10-2.",
+   "The win sends Texas to the SEC Championship Game against Georgia, the 35th and final one before the playoff grows next year.",
+   "Kicker Gianni Spetic made all three of his field goals, starting with a 54-yarder to open the scoring.",
+   "Texas is the first team since the AP poll began in 1936 to win road games at LSU, Tennessee and Texas A&M in the same season."
   ],
-  "url": "https://sports.yahoo.com/college-football/articles/watch-texas-longhorns-texas-m-113147662.html"
+  "url": "https://sports.yahoo.com/college-football/articles/no-3-texas-clinches-sec-043121644.html"
  }
 }
